@@ -28,7 +28,7 @@ A small website for **Healing Prayer North-West** where members book one-on-one 
 | Database, auth, checks, schedule and slot logic, emails, rate limits | Backend (Isaac) |
 | The API in section 8 | Agreed by both, then frozen |
 
-**Isaac:** start with the checklist in section 16, then read sections 3 and 8 to 11.
+**Isaac:** start with **`ISAAC.md`** (your to-do list and every endpoint), then read sections 3 and 8 to 11 here for full detail.
 
 ---
 
@@ -586,35 +586,4 @@ NEXT_PUBLIC_USE_MOCK=false
 
 ## 16. Backend checklist (for Isaac)
 
-### Database
-- [ ] Tables: `users`, `session_rule`, `blocked_date`, `settings` (one row), `appointment`, `password_reset_token`.
-- [ ] Overlap guard on `appointment` (exclusion constraint, section 9).
-- [ ] Script to create the first admin.
-- [ ] Seed one rule to start: Thursday 19:00 to 21:00, 30 minutes.
-
-### Endpoints
-- [ ] Auth: register, login, logout, me, forgot-password, reset-password.
-- [ ] Public: `GET /api/schedule`, `GET /api/slots`, `GET /api/health`.
-- [ ] Member: create, list mine, cancel.
-- [ ] Admin bookings: list, get one, update status.
-- [ ] Admin schedule: get, rules CRUD, blocked dates add and remove, settings, preview.
-- [ ] Later: `GET /api/slots/stream`.
-
-### Rules
-- [ ] One function that builds slots for a date range from rules, blocked dates and window. Used by `GET /api/slots` and to check new bookings.
-- [ ] All schedule maths in the church's time zone (`settings.timezone`, placeholder `America/Toronto`) with `zoneinfo`, daylight saving aware, stored and returned in UTC. No fixed offsets.
-- [ ] Turn the exclusion-constraint error into `409 SLOT_TAKEN`.
-- [ ] Weekly limit checked inside the booking transaction.
-- [ ] Same error shape and codes for every error, including validation.
-- [ ] Never delete bookings.
-
-### Emails
-- [ ] All emails in section 10. No prayer points in emails.
-- [ ] Email failure never fails the request. Log and retry once.
-- [ ] SPF and DKIM.
-
-### Operations
-- [ ] argon2 password hashing. Rate limits on login, register, reset, booking.
-- [ ] Publish the OpenAPI schema.
-- [ ] Postgres closed to the internet. Nightly backups, tested restore.
-- [ ] A staging environment for end-to-end tests.
+Moved to **`ISAAC.md`**, which is kept up to date with every change that affects the backend.

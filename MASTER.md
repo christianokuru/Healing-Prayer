@@ -18,11 +18,13 @@ A small website for **Healing Prayer North-West**. Members create an account, pi
 | `ENGINEERING.md` | **How the code** is structured and written | Folder layout, layers, data fetching, types, errors, testing, tooling |
 | `UI.md` | **How it looks and feels** at every screen size | Tokens, breakpoints, components, screen layouts, states, accessibility, words |
 | `MASTER.md` | **How to work** and **where we are** | This routine, status, decision log |
+| `ISAAC.md` | **What the backend developer must build** | Backend milestones, endpoint list, error codes, slot rules, "What's new" log for Isaac |
 
 **When documents disagree:**
 1. The user's latest instruction wins.
 2. Then `prd.md` for behaviour and rules.
 3. Then `ENGINEERING.md` for code and `UI.md` for design.
+4. `ISAAC.md` follows `prd.md`. If they differ, fix `ISAAC.md`.
 
 Never quietly pick one. Fix the losing document in the same change, and mention it to the user.
 
@@ -47,9 +49,10 @@ Never quietly pick one. Fix the losing document in the same change, and mention 
 
 1. Run the checks in `ENGINEERING.md` ("Definition of done") and the `UI.md` review checklist for any screen touched.
 2. If the work changed a rule, an API shape, a layout or a convention, update the matching document **in the same change**.
-3. Update section 6 below: what was done, what is next, any new open questions.
-4. Add any decision the user made to the decision log (section 7).
-5. Tell the user, in plain words, what changed and anything that is still open.
+3. If anything affects the backend (an endpoint, field, error code, rule, email or setting), update `ISAAC.md` in the same change: the relevant section **and** a dated line in its "What's new" table. Tell the user Isaac has something new.
+4. Update section 6 below: what was done, what is next, any new open questions.
+5. Add any decision the user made to the decision log (section 7).
+6. Tell the user, in plain words, what changed and anything that is still open.
 
 ---
 
@@ -72,7 +75,7 @@ Never quietly pick one. Fix the losing document in the same change, and mention 
 
 **Open questions**
 - Church content still needed: about text, services, address, contact details, photos.
-- API contract (`prd.md` section 8) to be reviewed and frozen with Isaac. Tell him about the time zone change (daylight saving, `settings.timezone`).
+- API contract (`prd.md` section 8, summarised in `ISAAC.md`) to be reviewed and frozen with Isaac. Share `ISAAC.md` with him.
 - Church location in Canada, to set the real time zone (placeholder `America/Toronto`).
 
 ---
@@ -83,6 +86,7 @@ Newest first. One line each.
 
 | Date | Decision |
 |---|---|
+| 2026-11-04 | `ISAAC.md` holds everything the backend developer must build, with a dated "What's new" log. Updated whenever backend work changes. |
 | 2026-11-04 | Time zone is Canadian, not Nigerian: a backend setting, placeholder `America/Toronto` until the church confirms. Daylight saving aware. Isaac to be told. |
 | 2026-11-04 | Lenis smooth scrolling site-wide, mouse and trackpad only; native on touch; off for reduced motion. |
 | 2026-11-04 | Added a `scrim` colour token for dialog backdrops (darkens in both themes). |
