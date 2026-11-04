@@ -147,9 +147,9 @@ lib/api/
 ## 8. Time
 
 - All time logic lives in `lib/time.ts`. No `new Date(...)` formatting or date maths anywhere else.
-- Data is UTC ISO strings end to end. Convert to `Africa/Lagos` only at display, with `Intl.DateTimeFormat` and `timeZone: "Africa/Lagos"`. No date library unless `Intl` is truly not enough.
-- Lagos calendar dates (`YYYY-MM-DD`) for API queries are built with the same module.
-- `time.ts` has thorough unit tests, including the `18:00Z` → 7:00 PM case and dates near midnight UTC.
+- Data is UTC ISO strings end to end. Convert to the church's time zone only at display, with `Intl.DateTimeFormat` and `timeZone` set to the value from `GET /api/schedule` (placeholder `America/Toronto`). Never hard-code the zone or an offset; Canada has daylight saving time. No date library unless `Intl` is truly not enough.
+- Church-time calendar dates (`YYYY-MM-DD`) for API queries are built with the same module.
+- `time.ts` has thorough unit tests: `2026-11-13T00:00:00Z` → Thursday 12 November, 7:00 PM in Toronto (the UTC date is a day ahead), the summer `23:00Z` case, and the weeks around the March and November clock changes.
 
 ---
 
@@ -161,6 +161,7 @@ Design rules (tokens, breakpoints, component looks, screen layouts) live in `UI.
 - **Class names** are combined with `cn()` from `lib/cn.ts` (clsx + tailwind-merge). It is configured for our custom type tokens; never use `twMerge` directly.
 - **Field** uses a render prop so the label, hint and error are always linked: `<Field id label hint error>{(control) => <Input {...control} />}</Field>`.
 - **Dialog** is built on the native `<dialog>` (focus trap, inert page, Escape). State lives in the parent through `open` and `onClose`.
+- **Smooth scrolling:** `components/SmoothScroll.tsx` starts Lenis once in the root layout (rules in `UI.md` section 3.3). Do not create other Lenis instances. To keep native scrolling inside an element, add `data-lenis-prevent`.
 - **Living reference:** `/dev/tokens` and `/dev/components` show every token and component. Update them when you add or change one.
 - **Feature components** compose ui primitives with domain data.
 - One component per file, named after the file. Props type is `<Name>Props`, declared above the component.
@@ -177,7 +178,7 @@ Design rules (tokens, breakpoints, component looks, screen layouts) live in `UI.
 |---|---|---|
 | Component | PascalCase, file matches | `SlotButton.tsx` |
 | Hook | `use` + noun/verb | `useLiveSlots` |
-| Function | verb first, camelCase | `formatLagosTime`, `groupSlotsByDay` |
+| Function | verb first, camelCase | `formatChurchTime`, `groupSlotsByDay` |
 | Boolean | `is` / `has` / `can` | `isBookable`, `hasWeeklyBooking` |
 | Constant | SCREAMING_SNAKE in `config.ts` | `POLL_MS` |
 | Zod schema | camelCase + `Schema` | `bookingSchema` |

@@ -72,7 +72,8 @@ Never quietly pick one. Fix the losing document in the same change, and mention 
 
 **Open questions**
 - Church content still needed: about text, services, address, contact details, photos.
-- API contract (`prd.md` section 8) to be reviewed and frozen with Isaac.
+- API contract (`prd.md` section 8) to be reviewed and frozen with Isaac. Tell him about the time zone change (daylight saving, `settings.timezone`).
+- Church location in Canada, to set the real time zone (placeholder `America/Toronto`).
 
 ---
 
@@ -82,6 +83,8 @@ Newest first. One line each.
 
 | Date | Decision |
 |---|---|
+| 2026-11-04 | Time zone is Canadian, not Nigerian: a backend setting, placeholder `America/Toronto` until the church confirms. Daylight saving aware. Isaac to be told. |
+| 2026-11-04 | Lenis smooth scrolling site-wide, mouse and trackpad only; native on touch; off for reduced motion. |
 | 2026-11-04 | Added a `scrim` colour token for dialog backdrops (darkens in both themes). |
 | 2026-11-04 | Light-mode gold darkened from `#9A6B00` to `#8A5F00` so gold text on gold-soft meets WCAG AA. |
 | 2026-11-04 | Work flow: one branch and one pull request per task; the user reviews and merges. `CLAUDE.md` loads `MASTER.md` and `AGENTS.md`. |

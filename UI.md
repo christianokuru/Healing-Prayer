@@ -108,6 +108,11 @@ Loaded with `next/font/google`, Latin subset only, `display: swap`.
 - **Radius:** `sm` 10 px (buttons in grids, inputs), `md` 14 px (boxes, banners), `lg` 20 px (cards, panels), `full` for pills and main buttons.
 - **Shadow:** one soft shadow token, used only on raised things (sticky bar, active toggle, dialogs). Cards use a border, not a shadow.
 - **Motion:** 150–200 ms ease-out for state changes. One special animation only: the red flash when a slot is just taken. Everything respects `prefers-reduced-motion`.
+- **Smooth scrolling (Lenis):** the whole site uses Lenis for mouse wheel and trackpad scrolling.
+  - Touch scrolling on phones and tablets stays native (`syncTouch` off).
+  - Off entirely when the user prefers reduced motion.
+  - Paused under an open dialog. Inner scroll areas (textareas, dialogs, anything with `data-lenis-prevent`) scroll natively.
+  - In-page anchor links scroll smoothly through Lenis.
 
 ---
 
@@ -275,7 +280,7 @@ Every screen that loads data has all four of these:
 - Homepage under 200 KB of JS on first load. Largest content shows within 2.5 s on a mid-range phone over 4G.
 - Two font families, Latin subset only, no extra weights.
 - Images: `next/image`, responsive sizes, lazy below the fold, no image over 200 KB.
-- No carousels, background videos or animation libraries.
+- No carousels, background videos or animation libraries, except Lenis for smooth scrolling (section 3.3).
 
 ---
 

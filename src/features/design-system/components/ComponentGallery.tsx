@@ -79,7 +79,7 @@ export function ComponentGallery() {
           <Field
             id="demo-phone"
             label="Phone number"
-            hint="Include the country code, for example +234."
+            hint="Include the country code, for example +1."
             error="Use digits only, with an optional + at the start."
           >
             {(control) => <Input {...control} type="tel" defaultValue="0801-234-ABC" />}
