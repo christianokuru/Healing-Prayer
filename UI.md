@@ -72,6 +72,7 @@ All colours, sizes and fonts come from tokens in `globals.css` (Tailwind v4 `@th
 | `ok` / `ok-soft` | `#2B6A4C` / `#E3F1E9` | `#82CBA5` / `#1B3328` | Free, success, completed |
 | `danger` / `danger-soft` | `#9E2A37` / `#FBE8EA` | `#F2939D` / `#3E1F25` | Errors, cancelled |
 | `off` | `#EDEAF0` | `#2A2231` | Disabled, taken, no session |
+| `scrim` | `rgb(35 26 43 / 0.45)` | `rgb(0 0 0 / 0.65)` | Dim layer behind dialogs and sheets |
 
 - Light is the default. Dark follows the device setting.
 - Every text and background pair meets WCAG AA (4.5:1 for text, 3:1 for large text and UI edges). Check any new pair before using it.

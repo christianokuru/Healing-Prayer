@@ -23,6 +23,7 @@
   --danger-soft: #fbe8ea;
   --off: #edeaf0;
   --shadow-color: 35 26 43;
+  --scrim: rgb(35 26 43 / 0.45);
   color-scheme: light;
 }
 
@@ -44,6 +45,7 @@
     --danger-soft: #3e1f25;
     --off: #2a2231;
     --shadow-color: 0 0 0;
+    --scrim: rgb(0 0 0 / 0.65);
     color-scheme: dark;
   }
 }
@@ -65,6 +67,7 @@
   --danger-soft: #3e1f25;
   --off: #2a2231;
   --shadow-color: 0 0 0;
+  --scrim: rgb(0 0 0 / 0.65);
   color-scheme: dark;
 }
 
@@ -86,6 +89,7 @@
   --color-danger: var(--danger);
   --color-danger-soft: var(--danger-soft);
   --color-off: var(--off);
+  --color-scrim: var(--scrim);
 
   --font-display: var(--font-lora), Georgia, "Times New Roman", serif;
   --font-sans: var(--font-atkinson), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -159,6 +163,11 @@
     font-family: var(--font-display);
     font-weight: 600;
     text-wrap: balance;
+  }
+
+  /* Stop the page behind an open dialog from scrolling. */
+  html:has(dialog[open]) {
+    overflow: hidden;
   }
 
   :focus-visible {

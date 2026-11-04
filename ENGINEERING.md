@@ -157,7 +157,11 @@ lib/api/
 
 Design rules (tokens, breakpoints, component looks, screen layouts) live in `UI.md`. This section covers only how components are coded.
 
-- **`components/ui/`**: Button, Field, Input, Textarea, Select, Card, Dialog, Badge, Spinner, EmptyState. They take props, render markup and never fetch or know about the domain.
+- **`components/ui/`**: Button, Field, Input, Textarea, Card, Badge, Banner, Dialog, SegmentedToggle, Toast (`ToastProvider` + `useToast`), Skeleton, Spinner, EmptyState. Import them from `@/components/ui`. They take props, render markup and never fetch or know about the domain. Add Select when a screen needs it.
+- **Class names** are combined with `cn()` from `lib/cn.ts` (clsx + tailwind-merge). It is configured for our custom type tokens; never use `twMerge` directly.
+- **Field** uses a render prop so the label, hint and error are always linked: `<Field id label hint error>{(control) => <Input {...control} />}</Field>`.
+- **Dialog** is built on the native `<dialog>` (focus trap, inert page, Escape). State lives in the parent through `open` and `onClose`.
+- **Living reference:** `/dev/tokens` and `/dev/components` show every token and component. Update them when you add or change one.
 - **Feature components** compose ui primitives with domain data.
 - One component per file, named after the file. Props type is `<Name>Props`, declared above the component.
 - Variants through a small variant map (or `cva` if variants grow), not ad-hoc conditionals in `className`.
