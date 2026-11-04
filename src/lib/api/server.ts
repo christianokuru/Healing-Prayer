@@ -1,7 +1,9 @@
 import "server-only";
 import { cookies, headers } from "next/headers";
+import { cache } from "react";
 import { createSend } from "./client";
 import { createApi, type Api } from "./endpoints";
+import type { PublicSchedule } from "./types";
 
 /**
  * The API for Server Components and layouts. Forwards the visitor's cookies.
@@ -15,3 +17,9 @@ export async function getServerApi(): Promise<Api> {
   const origin = process.env.API_INTERNAL_URL ?? `${proto}://${host}`;
   return createApi(createSend({ origin, cookie: cookieStore.toString() }));
 }
+
+/** The public schedule, fetched once per request however many components need it. */
+export const getPublicSchedule = cache(async (): Promise<PublicSchedule> => {
+  const api = await getServerApi();
+  return api.schedule();
+});

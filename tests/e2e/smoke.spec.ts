@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 test("homepage loads with the church name", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByText("Healing Prayer", { exact: true })).toBeVisible();
+  await expect(page.getByText("Healing Prayer", { exact: true }).first()).toBeVisible();
 });
 
 test("token sheet renders without horizontal scroll", async ({ page }) => {
