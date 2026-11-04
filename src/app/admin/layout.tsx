@@ -1,9 +1,13 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui";
 import { RequireUser } from "@/features/auth";
 import { SiteHeader } from "@/features/site-shell";
 
 // Temporary shell. The admin sidebar layout (UI.md section 4.3) comes with the admin screens.
+// Private area: never in search results.
+export const metadata: Metadata = { robots: { index: false, follow: false } };
+
 export default function AdminLayout({ children }: LayoutProps<"/admin">) {
   return (
     <div className="flex min-h-dvh flex-col">

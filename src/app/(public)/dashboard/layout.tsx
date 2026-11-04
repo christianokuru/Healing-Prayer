@@ -1,6 +1,10 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui";
 import { RequireUser } from "@/features/auth";
+
+// Private area: never in search results.
+export const metadata: Metadata = { robots: { index: false, follow: false } };
 
 export default function DashboardLayout({ children }: LayoutProps<"/dashboard">) {
   return (

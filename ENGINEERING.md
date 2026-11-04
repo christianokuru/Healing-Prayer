@@ -222,10 +222,20 @@ API data stays `snake_case` as received. No casing conversion layer.
 
 - No tokens or user data in `localStorage` or `sessionStorage`.
 - Prayer points never appear in URLs, query strings, logs, analytics or error reports.
-- No `dangerouslySetInnerHTML` with user content.
+- No `dangerouslySetInnerHTML` with user content. The one exception is `<JsonLd>`, which renders our own structured data with `<` escaped.
 - Role checks on the frontend are for UX only. Every protected action relies on the backend's answer.
 
 ---
+
+## 12a. SEO and metadata
+
+- **Site-wide** metadata lives in `src/app/layout.tsx`: `metadataBase` from `SITE_URL` (`lib/config.ts`), title template `%s · Healing Prayer North-West`, description, Open Graph and Twitter cards, `en-CA`, robots with large image previews, Apple web-app settings, and Google verification from `GOOGLE_SITE_VERIFICATION`.
+- **Every page** sets its own `title` (short, no site name; the template adds it), `description` and `alternates.canonical`.
+- **Indexing:** public pages are indexed. Account pages (`/login`, `/register`, `/forgot-password`, `/reset-password`) are `noindex, follow`. `/dashboard` and `/admin` layouts are `noindex, nofollow`. `robots.ts` disallows `/api/`, `/dashboard`, `/admin`, `/dev/`, `/reset-password`; `next.config.ts` adds `X-Robots-Tag: noindex` to `/api/*` and `/dev/*`.
+- **Sitemap:** `src/app/sitemap.ts` lists indexable pages only. Add each new public page there.
+- **Share image:** `src/app/opengraph-image.tsx` (and `twitter-image.tsx`, which re-exports it), 1200 × 630, built at build time. Fonts are TTFs in `assets/og/`, read when the file loads. Artwork comes from `lib/ogArt.ts`.
+- **Icons and app:** `src/app/icon.svg` (favicon), `src/app/apple-icon.png` (180 px), `public/icons/` (192, 512, maskable 512), `src/app/manifest.ts`.
+- **Structured data:** builders in `lib/seo.ts` (Church with a ReserveAction, WebSite, and one Event per upcoming session day), rendered with `<JsonLd>` (`components/JsonLd.tsx`). The address, phone, email and events are only included once `CHURCH_DETAILS_ARE_PLACEHOLDERS` is false, so fake details are never indexed. Validate changes with Google's Rich Results Test.
 
 ## 13. Testing
 

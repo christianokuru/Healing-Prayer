@@ -58,7 +58,7 @@ Never quietly pick one. Fix the losing document in the same change, and mention 
 
 ## 6. Status
 
-**Current phase:** Phase 1, UI with mock data (see `prd.md` section 13). Phone sizing (iPhone feel) awaiting merge; then step 5 (booking).
+**Current phase:** Phase 1, UI with mock data (see `prd.md` section 13). SEO awaiting merge; then step 5 (booking).
 
 **Done**
 - PRD v3 written (admin-set schedule).
@@ -76,15 +76,20 @@ Never quietly pick one. Fix the losing document in the same change, and mention 
 - Visual style chosen and applied: Candlelight × Manuscript (UI.md). Tokens, fonts, ornaments, header/footer, homepage, auth screens and area placeholders restyled.
 - Site hosted on Vercel: https://healing-prayer.vercel.app/
 - Phones made compact with an iPhone feel (UI.md 3.5); tablet and desktop unchanged.
+- SEO: metadata on every page, share image, icons and manifest, robots.txt, sitemap.xml, structured data (Church, WebSite, session Events once the address is real).
 
 **Next**
 1. Phase 1, step 5: the booking flow at `/book` (upcoming days list, calendar view, prayer point, confirm): behaviour from the booking sample, style from the Candlelight × Manuscript reference.
 2. Then member dashboard, admin bookings, admin schedule (`prd.md` section 13, Phase 1).
+3. With `/book`: add it to `sitemap.ts`, give it page metadata (indexable), and point the hero CTA's structured data at it (already set).
 
 **Open questions**
 - Church content still needed: about text, services, address, contact details, photos. Placeholders live in `src/features/home/content.ts` and `src/lib/church.ts`; set the `*_PLACEHOLDER(S)` flags to false when replaced.
 - API contract (`prd.md` section 8, summarised in `ISAAC.md`) to be reviewed and frozen with Isaac. Share `ISAAC.md` with him.
 - Church location in Canada, to set the real time zone (placeholder `America/Toronto`).
+- When real contact details arrive: set `CHURCH_DETAILS_ARE_PLACEHOLDERS` to false. That also turns on the address in structured data and the session Events for Google.
+- Set up Google Search Console for https://healing-prayer.vercel.app/ (or the final domain): add `GOOGLE_SITE_VERIFICATION` in Vercel, then submit `sitemap.xml`.
+- If the site moves to its own domain, set `NEXT_PUBLIC_SITE_URL` in Vercel.
 
 ---
 
@@ -94,6 +99,7 @@ Newest first. One line each.
 
 | Date | Decision |
 |---|---|
+| 2026-11-04 | SEO before booking: full metadata, share image, icons, manifest, robots, sitemap, structured data. Placeholder contact details are never put in structured data. |
 | 2026-11-04 | Phones (under 768 px): smaller text and buttons, tighter line height, system font, frosted header, iOS-style menu and sheets. Tablet and desktop unchanged. Fields stay 16 px so iOS does not zoom. |
 | 2026-11-04 | Visual style: **Candlelight × Manuscript** (dusk chapel, candles, arches; parchment, Cinzel caps, ✠, drop caps, order-of-service lists, KJV verses). Applies to every screen, dashboards included. Reference: https://claude.ai/artifact/AddXHW5nMkmh5k98MPPnyF |
 | 2026-11-04 | Light only for now; a night version may come later, so all colours stay tokens defined once on `:root`. |

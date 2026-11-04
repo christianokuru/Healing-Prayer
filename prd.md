@@ -491,6 +491,7 @@ API_PROXY_TARGET=http://localhost:8000   # dev rewrites target
 NEXT_PUBLIC_USE_MOCK=false
 API_INTERNAL_URL=http://127.0.0.1:8000   # server-side calls go straight to FastAPI (unset in mock mode)
 SESSION_COOKIE_NAME=hp_session           # must match the backend's session cookie
+GOOGLE_SITE_VERIFICATION=                # optional: Google Search Console verification code
 ```
 
 ---
@@ -565,6 +566,7 @@ SESSION_COOKIE_NAME=hp_session           # must match the backend's session cook
 - A slot booked on another device shows as taken within about 5 seconds.
 - `SLOT_TAKEN` clears the chosen slot, refreshes the times, keeps the prayer point and shows a clear message.
 - Logged-out visitors are sent away from `/dashboard` and `/admin`. A member who opens `/admin` is sent away.
+- Every public page has a title, description and canonical link; the homepage has share-preview tags and image, structured data (Church, WebSite) and is listed in `sitemap.xml`. Account, member and admin pages are not indexed.
 - Times show in the church's time zone from `GET /api/schedule`. With `America/Toronto`, a 7:00 PM slot on 12 November arrives as `2026-11-13T00:00:00Z` and shows as Thursday 12 November, 7:00 PM.
 - Across a daylight saving change, the same weekly rule still shows 7:00 PM on both sides of the change.
 - No prayer point appears in a URL, a log or browser storage.
