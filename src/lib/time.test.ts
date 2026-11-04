@@ -2,6 +2,8 @@ import {
   addDays,
   clockToMinutes,
   daysBetween,
+  formatClock,
+  formatClockRange,
   formatDateKeyLong,
   formatDayLong,
   formatDayShort,
@@ -12,8 +14,10 @@ import {
   isDateKey,
   isoWeekday,
   minutesToClock,
+  timeZoneLabel,
   toDateKey,
   weekStart,
+  weekdayName,
   zonedToUtc,
 } from "./time";
 
@@ -115,5 +119,23 @@ describe("calendar helpers", () => {
     expect(isClockTime("24:00")).toBe(false);
     expect(clockToMinutes("19:30")).toBe(1170);
     expect(minutesToClock(1170)).toBe("19:30");
+  });
+});
+
+describe("schedule wording", () => {
+  it("formats clock times and ranges", () => {
+    expect(formatClock("19:00")).toBe("7:00 PM");
+    expect(formatClockRange("19:00", "21:00")).toBe("7:00 – 9:00 PM");
+    expect(formatClockRange("10:30", "12:00")).toBe("10:30 AM – 12:00 PM");
+  });
+
+  it("names weekdays from API numbers", () => {
+    expect(weekdayName(1)).toBe("Monday");
+    expect(weekdayName(4)).toBe("Thursday");
+    expect(weekdayName(7)).toBe("Sunday");
+  });
+
+  it("names the time zone in plain words", () => {
+    expect(timeZoneLabel("America/Toronto")).toBe("Eastern Time");
   });
 });

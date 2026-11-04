@@ -2,6 +2,7 @@ export { Badge, type BadgeTone } from "./Badge";
 export { Banner } from "./Banner";
 export { Button, type ButtonProps, type ButtonVariant } from "./Button";
 export { Card } from "./Card";
+export { CopyButton } from "./CopyButton";
 export { Dialog } from "./Dialog";
 export { EmptyState } from "./EmptyState";
 export { Field, type FieldControlProps } from "./Field";

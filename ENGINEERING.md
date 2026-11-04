@@ -45,6 +45,8 @@ src/
   lib/
     api/                        client, endpoints, generated types, mock
     auth/                       getSession (server), useSession (client)
+    church.ts                   church contact details (placeholders until the church sends them)
+    schedule.ts                 plain-words schedule summaries
     time.ts                     all date/time logic
     errors.ts                   ApiError + code → message map
     config.ts                   constants (poll interval, page size, …)
@@ -84,6 +86,8 @@ app  →  features  →  components/ui, lib
 - Layout guards: `dashboard/layout.tsx` and `admin/layout.tsx` call `getSession()`. No user → `redirect("/login?next=…")`. Wrong role → `redirect("/dashboard")`.
 - `proxy.ts` only redirects when the session cookie is absent. No decoding, no role checks. It is not a security boundary.
 - Every route segment that loads data gets a `loading.tsx` where it helps UX. Errors bubble to `error.tsx`.
+- **Cache Components is on.** Anything that reads cookies, headers or the API renders inside `<Suspense>` with a fallback in the shape of the content, so the rest of the page is prerendered. `new Date()` in a Server Component needs `await connection()` first, inside Suspense.
+- Server-side data helpers are wrapped in React `cache()` so several components can ask for them in one request: `getSession()` (`lib/auth/getSession.ts`) and `getPublicSchedule()` (`lib/api/server.ts`).
 
 ---
 

@@ -199,3 +199,34 @@ export function formatMonth(key: string): string {
     keyToDate(key),
   );
 }
+
+/** "7:00 PM" for a clock time "19:00" (no date or time zone involved). */
+export function formatClock(clock: string): string {
+  const [h, m] = parseClock(clock);
+  return formatTime(new Date(Date.UTC(2000, 0, 1, h, m)), "UTC");
+}
+
+/** "7:00 – 9:00 PM" for two clock times. */
+export function formatClockRange(start: string, end: string): string {
+  const toDate = (clock: string) => {
+    const [h, m] = parseClock(clock);
+    return new Date(Date.UTC(2000, 0, 1, h, m));
+  };
+  return formatTimeRange(toDate(start), toDate(end), "UTC");
+}
+
+/** "Thursday" for an API weekday (1 = Monday … 7 = Sunday). */
+export function weekdayName(weekday: number): string {
+  // 2024-01-01 was a Monday.
+  return formatter("en-GB", { timeZone: "UTC", weekday: "long" }).format(
+    keyToDate(addDays("2024-01-01", weekday - 1)),
+  );
+}
+
+/** "Eastern Time" for "America/Toronto". */
+export function timeZoneLabel(timeZone: string): string {
+  const part = formatter("en-US", { timeZone, timeZoneName: "longGeneric" })
+    .formatToParts(new Date())
+    .find((p) => p.type === "timeZoneName");
+  return part?.value ?? timeZone;
+}
