@@ -40,7 +40,8 @@ export function LoginForm() {
 
   return (
     <AuthCard
-      title="Log in"
+      title="Welcome back"
+      verse={{ text: "Draw nigh to God, and he will draw nigh to you.", reference: "James 4:8" }}
       intro={next === "/book" ? "Log in to finish booking your prayer session." : undefined}
       footer={
         <p>

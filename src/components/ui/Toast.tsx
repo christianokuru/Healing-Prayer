@@ -38,7 +38,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
         className="pointer-events-none fixed inset-x-0 bottom-[calc(24px+env(safe-area-inset-bottom,0px))] z-50 flex justify-center gutter"
       >
         {message && (
-          <p className="max-w-full rounded-full bg-ink px-4 py-2.5 text-small text-bg shadow-raised">
+          <p className="max-w-full rounded-full bg-night px-4 py-2.5 text-small text-plum-ink shadow-raised">
             {message}
           </p>
         )}

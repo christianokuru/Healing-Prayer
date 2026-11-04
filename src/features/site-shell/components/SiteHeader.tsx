@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { accountLink, PUBLIC_LINKS } from "../nav";
 import { AccountLink, AccountLinkView } from "./AccountLink";
+import { HeaderFrame } from "./HeaderFrame";
 import { MobileMenu } from "./MobileMenu";
 import { Wordmark } from "./Wordmark";
 
@@ -11,7 +12,7 @@ const LOGGED_OUT = accountLink(null);
 
 export function SiteHeader() {
   return (
-    <header className="border-b border-line bg-bg">
+    <HeaderFrame>
       <div className="mx-auto flex max-w-content items-center justify-between gap-4 py-4 gutter">
         <Wordmark />
         <nav aria-label="Main" className="hidden md:block">
@@ -20,7 +21,7 @@ export function SiteHeader() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="inline-flex min-h-11 items-center rounded-full px-4 font-bold hover:bg-off"
+                  className="inline-flex min-h-11 items-center rounded-full px-4 font-bold hover:bg-plum-soft group-data-[tone=dusk]:hover:bg-plum-ink/10"
                 >
                   {link.label}
                 </Link>
@@ -42,6 +43,6 @@ export function SiteHeader() {
           }
         />
       </div>
-    </header>
+    </HeaderFrame>
   );
 }

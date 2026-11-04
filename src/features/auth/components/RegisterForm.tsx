@@ -50,6 +50,10 @@ export function RegisterForm() {
   return (
     <AuthCard
       title="Create an account"
+      verse={{
+        text: "Ask, and it shall be given you; seek, and ye shall find.",
+        reference: "Matthew 7:7",
+      }}
       intro="You need an account to book a prayer session."
       footer={
         <p>

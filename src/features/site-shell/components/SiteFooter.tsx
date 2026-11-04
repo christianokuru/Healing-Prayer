@@ -1,19 +1,19 @@
 import { connection } from "next/server";
 import { Suspense } from "react";
+import { Cross } from "@/components/ui";
 import { getPublicSchedule } from "@/lib/api/server";
 import { CHURCH } from "@/lib/church";
 import { summariseRules } from "@/lib/schedule";
-import { Wordmark } from "./Wordmark";
 
 async function FooterSessions() {
   const schedule = await getPublicSchedule().catch(() => null);
   const sessions = schedule ? summariseRules(schedule.rules) : [];
-  if (sessions.length === 0) return <p className="text-muted">Session times coming soon.</p>;
+  if (sessions.length === 0) return <p>Session times coming soon.</p>;
   return (
     <ul className="flex flex-col gap-1">
       {sessions.map((s) => (
-        <li key={`${s.day}-${s.times}`}>
-          <b>{s.day}s</b> · {s.times}
+        <li key={`${s.day}-${s.times}`} className="tabular-nums">
+          {s.day}s · {s.times}
         </li>
       ))}
     </ul>
@@ -29,28 +29,28 @@ async function Copyright() {
   );
 }
 
+/** Night footer (UI.md section 4.1). */
 export function SiteFooter() {
   return (
-    <footer className="mt-auto border-t border-line bg-surface">
-      <div className="mx-auto grid max-w-content gap-8 py-12 gutter md:grid-cols-3">
+    <footer className="mt-12 bg-night text-plum-soft">
+      <div className="mx-auto grid max-w-content gap-8 py-12 gutter md:grid-cols-[1.4fr_1fr_1fr]">
         <div className="flex flex-col gap-3">
-          <Wordmark />
-          <p className="text-small text-muted">
-            One-on-one prayer, in person, with our prayer team.
+          <p className="flex items-center gap-2.5">
+            <Cross className="text-gold-glow" />
+            <span className="font-display text-[1.5rem] font-semibold text-plum-ink">
+              {CHURCH.name}
+            </span>
           </p>
+          <p className="text-small">One-on-one prayer, in person, with our prayer team.</p>
         </div>
         <div className="flex flex-col gap-2 text-small">
-          <h2 className="font-sans text-label font-bold tracking-[0.12em] text-muted uppercase">
-            Prayer sessions
-          </h2>
-          <Suspense fallback={<p className="text-muted">Loading times…</p>}>
+          <h2 className="caps text-gold-glow">Prayer sessions</h2>
+          <Suspense fallback={<p>Loading times…</p>}>
             <FooterSessions />
           </Suspense>
         </div>
         <div className="flex flex-col gap-2 text-small">
-          <h2 className="font-sans text-label font-bold tracking-[0.12em] text-muted uppercase">
-            Visit or contact
-          </h2>
+          <h2 className="caps text-gold-glow">Visit or contact</h2>
           <address className="not-italic">
             {CHURCH.addressLines.map((line) => (
               <span key={line} className="block">
@@ -62,8 +62,8 @@ export function SiteFooter() {
           <p>{CHURCH.email}</p>
         </div>
       </div>
-      <div className="border-t border-line">
-        <p className="mx-auto max-w-content py-4 gutter text-small text-muted">
+      <div className="border-t border-plum-ink/15">
+        <p className="mx-auto max-w-content py-4 gutter text-small">
           <Suspense fallback={CHURCH.name}>
             <Copyright />
           </Suspense>
