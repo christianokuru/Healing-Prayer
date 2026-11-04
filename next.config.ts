@@ -31,6 +31,13 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  // Belt and braces for search engines: API answers and dev pages are never indexed.
+  async headers() {
+    return [
+      { source: "/api/:path*", headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] },
+      { source: "/dev/:path*", headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] },
+    ];
+  },
   // Development against a real FastAPI: forward /api/* before the mock route can match.
   async rewrites() {
     if (useMock || !apiTarget) return [];

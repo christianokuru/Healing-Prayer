@@ -23,3 +23,14 @@ export const ADMIN_PAGE_SIZE = 20;
  * exists (a shortcut, not security). Must match the backend (ISAAC.md section 1).
  */
 export const SESSION_COOKIE = process.env.SESSION_COOKIE_NAME ?? "hp_session";
+
+/**
+ * The site's public address, for canonical links, share images and the sitemap.
+ * NEXT_PUBLIC_SITE_URL wins; on Vercel the production domain is used automatically.
+ */
+export const SITE_URL = (
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "https://healing-prayer.vercel.app")
+).replace(/\/$/, "");
