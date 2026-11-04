@@ -128,8 +128,9 @@ The backend enforces every rule. The frontend repeats some checks for a smoother
 
 12. The API sends and receives all times as ISO 8601 in UTC. The frontend shows them in the church's time zone, which it reads from `GET /api/schedule`. Example (Toronto): 7:00 PM on Thursday 12 November is `2026-11-13T00:00:00Z` (winter, UTC−5); 7:00 PM on Thursday 11 June is `2026-06-11T23:00:00Z` (summer, UTC−4).
 13. Prayer point: required, 1 to 10,000 characters. Both sides count Unicode code points (in JavaScript use `[...text].length`, not `text.length`).
-14. Phone: digits with an optional leading `+`, 7 to 15 digits.
-15. Password: at least 8 characters.
+14. Phone: digits with an optional leading `+`, 7 to 15 digits. The frontend strips spaces, dashes, dots and brackets before sending, so `(416) 555-0123` arrives as `4165550123`.
+15. Password: 8 to 128 characters.
+16. Full name: 1 to 100 characters after trimming. Email: up to 254 characters, stored lowercased.
 
 ---
 
@@ -282,7 +283,7 @@ Reset tokens last 1 hour and work once.
 - Returns **every** slot in the range that the schedule offers, plus any slot that still holds an active booking. Never includes names.
 - `state`: `free`, `taken` or `mine` (`mine` only when logged in).
 - `bookable`: false for past slots, slots beyond the window, or slots blocked by the weekly limit for this member.
-- `week_booked`: Monday dates (church time zone) of weeks where the logged-in member already has a booking.
+- `week_booked`: Monday dates (church time zone) of weeks where the logged-in member already has a booking. Only weeks that overlap the requested `from`–`to` range.
 - Header: `Cache-Control: no-store`.
 
 ```json
@@ -346,7 +347,7 @@ Backend steps: check the session, check the body, check that the slot exists in 
 | POST | `/api/admin/schedule/blocked-dates` | `date`, `reason` (optional) | `201 { blocked_date }` |
 | DELETE | `/api/admin/schedule/blocked-dates/{id}` | none | `204` |
 | PATCH | `/api/admin/schedule/settings` | `booking_window_weeks` | `200 { settings }` |
-| POST | `/api/admin/schedule/preview` | the proposed change (same body as the call it previews, plus `action`) | `200 { affected_count, affected_ids }` |
+| POST | `/api/admin/schedule/preview` | the proposed change (same body as the call it previews, plus `action`: `create_rule`, `update_rule` (+ `id`), `delete_rule` (+ `id`) or `add_blocked_date`) | `200 { affected_count, affected_ids }` |
 
 `GET /api/admin/schedule` response:
 
@@ -488,6 +489,7 @@ NEXT_PUBLIC_SITE_URL=https://example.org
 NEXT_PUBLIC_API_BASE=/api
 API_PROXY_TARGET=http://localhost:8000   # dev rewrites target
 NEXT_PUBLIC_USE_MOCK=false
+API_INTERNAL_URL=http://127.0.0.1:8000   # server-side calls go straight to FastAPI (unset in mock mode)
 ```
 
 ---

@@ -33,6 +33,7 @@ src/
     admin/appointments/[id]/page.tsx
     admin/schedule/page.tsx
     layout.tsx, globals.css, error.tsx, not-found.tsx
+    api/[...path]/route.ts      mock API (mock mode only)
   features/
     auth/
     booking/
@@ -90,19 +91,24 @@ app  →  features  →  components/ui, lib
 
 ```
 lib/api/
-  schema.d.ts      generated: `openapi-typescript $API/openapi.json -o src/lib/api/schema.d.ts`
-  types.ts         friendly aliases: export type Appointment = components["schemas"]["Appointment"]
-  client.ts        request<T>()
-  endpoints.ts     one function per endpoint, implements the Api interface
-  mock/            in-memory implementation of the same Api interface
-  index.ts         export const api: Api = USE_MOCK ? mockApi : httpApi
+  types.ts         API types. Hand-written from ISAAC.md until Phase 2, then generated:
+                   `openapi-typescript $API/openapi.json -o src/lib/api/schema.d.ts`
+  client.ts        createSend(): the one function that calls fetch
+  endpoints.ts     createApi(send): one small function per endpoint
+  index.ts         `api` for client components (same origin, browser sends cookies)
+  server.ts        getServerApi() for Server Components and layouts (forwards cookies)
+  mock/            the mock backend: store.ts (seed data), slots.ts, handlers.ts
+app/api/[...path]/route.ts   serves the mock at /api/* in mock mode only
 ```
 
-- **`Api` interface** is the contract. HTTP and mock both implement it. Components never know which one they got.
-- **`request<T>()`**: builds the URL, sets `credentials: "include"` and JSON headers, parses the body, throws `ApiError` on non-2xx using the shared error shape. Unknown shapes become `ApiError("UNKNOWN", …)`.
-- **Server vs browser base URL.** In the browser: relative `/api`. On the server: `API_INTERNAL_URL` (for example `http://127.0.0.1:8000`) and forward the incoming cookie header. `client.ts` handles this in one place.
+- **One contract, two backends.** The client always speaks HTTP to `/api/*`. In mock mode, `/api/*` is answered by the mock inside the Next.js server; otherwise by FastAPI. Components never know which.
+- **`createSend()`**: builds the URL, sends JSON with `credentials: "include"` and `cache: "no-store"`, returns `undefined` for 204, throws `ApiError` from the shared error shape. Network failures become `NETWORK_ERROR`; unknown shapes become `UNKNOWN`.
+- **Server vs browser.** In the browser: relative `/api`. On the server, `getServerApi()` uses `API_INTERNAL_URL` (FastAPI, for example `http://127.0.0.1:8000`) when set, otherwise this site's own origin (the mock), and forwards the visitor's cookies. `server.ts` imports `server-only`.
+- **Routing to FastAPI.** Production: Nginx sends `/api/*` to FastAPI, so the mock route is never reached. Development against a real backend: `next.config.ts` rewrites `/api/*` to `API_PROXY_TARGET` in `beforeFiles`, so it wins over the mock route. The mock route also returns 404 unless `NEXT_PUBLIC_USE_MOCK=true`.
 - **Generated files are never edited.** Regenerate when the backend schema changes and fix compile errors.
-- **The mock** lives only under `lib/api/mock/`. It is the only frontend code allowed to compute slots (it imitates the backend). It returns the same error codes and shapes, and adds a small artificial delay so loading states are exercised.
+- **The mock** is the only frontend code allowed to compute slots. It follows `ISAAC.md` section 5 step by step and returns the same responses and error codes. It keeps data in memory on `globalThis` (reset on server restart) and waits 250 ms per request so loading states are visible.
+- **Mock-only endpoints** for tests and local work: `POST /api/__mock/reset` (restore seed data) and `GET /api/__mock/reset-token?email=` (the latest password reset token).
+- **Demo accounts** (mock only): member `ngozi@example.com` / `password123`, admin `admin@example.com` / `admin12345`. More members are in `mock/store.ts`.
 
 ---
 
@@ -192,7 +198,7 @@ API data stays `snake_case` as received. No casing conversion layer.
 ## 11. TypeScript
 
 - `strict: true`, `noUncheckedIndexedAccess: true`, `noImplicitOverride: true`.
-- No `any`. `unknown` + narrowing at boundaries. No non-null `!` except with a comment explaining why it is safe.
+- No `any`. `unknown` + narrowing at boundaries. No non-null `!` except with a comment explaining why it is safe (allowed freely in test files).
 - Prefer `type` aliases. Discriminated unions for states (`{ status: "idle" } | { status: "error"; error: ApiError }`).
 - Exhaustive `switch` with a `never` check on unions such as `state` and `status`.
 - Path alias `@/*` → `src/*`. No deep relative imports (`../../../`).
