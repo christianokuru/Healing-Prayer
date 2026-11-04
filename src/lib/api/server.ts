@@ -1,5 +1,6 @@
 import "server-only";
 import { cookies, headers } from "next/headers";
+import { connection } from "next/server";
 import { cache } from "react";
 import { createSend } from "./client";
 import { createApi, type Api } from "./endpoints";
@@ -11,6 +12,8 @@ import type { PublicSchedule } from "./types";
  * own origin, which serves the mock in mock mode.
  */
 export async function getServerApi(): Promise<Api> {
+  // API answers are per request and never part of the prerendered shell.
+  await connection();
   const [cookieStore, headerList] = await Promise.all([cookies(), headers()]);
   const host = headerList.get("x-forwarded-host") ?? headerList.get("host") ?? "localhost:3000";
   const proto = headerList.get("x-forwarded-proto") ?? "http";

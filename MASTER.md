@@ -90,6 +90,7 @@ Newest first. One line each.
 
 | Date | Decision |
 |---|---|
+| 2026-11-04 | Dev server allows local-network origins (`allowedDevOrigins`) so the site can be tested on a phone. |
 | 2026-11-04 | Session cookie name `hp_session` (configurable with `SESSION_COOKIE_NAME`); added to `ISAAC.md`. |
 | 2026-11-04 | Placeholder content is shown with a "Sample text" mark and "photo to come" blocks until the church sends real content. No stock photos. |
 | 2026-11-04 | The mock API runs as a real `/api/*` inside the Next.js server (mock mode only), not in the browser, so server-side login checks work against it. |

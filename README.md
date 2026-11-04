@@ -14,6 +14,14 @@ npm run dev
 
 Open http://localhost:3000. In mock mode the API at `/api/*` is served by an in-memory fake backend. Demo accounts: member `ngozi@example.com` / `password123`, admin `admin@example.com` / `admin12345`. The design token sheet is at http://localhost:3000/dev/tokens.
 
+## Test on your phone
+
+1. Connect the phone to the same Wi-Fi as your computer.
+2. Run `npm run dev` and note the **Network** address it prints, for example `http://192.168.1.20:3000`.
+3. Open that address on the phone.
+
+Buttons need the page's JavaScript, which the dev server only sends to allowed addresses. Home networks (`192.168.x.x`, `10.x.x.x`) are allowed in `next.config.ts`. If buttons do nothing on your phone, add your computer's address to `DEV_ALLOWED_ORIGINS` in `.env.local` and restart `npm run dev`.
+
 ## Checks
 
 ```bash
