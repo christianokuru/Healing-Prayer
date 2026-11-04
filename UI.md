@@ -183,6 +183,8 @@ Sections in order: hero, about, what we do, when sessions run (from the live sch
 ### 6.2 Login, register, forgot and reset password
 - **All sizes:** one centred card, max 440 px wide, on `bg`. Wordmark above it.
 - Register shows the privacy note: "Only church admins can read your prayer points."
+- Password fields have a Show/Hide button. A field's hint is hidden while it shows an error, so the two never repeat each other.
+- Someone already logged in who opens login or register goes straight to their area.
 - Errors show next to the field when they belong to a field, and in a banner otherwise.
 - After login from the booking page, the user returns to the same chosen time.
 

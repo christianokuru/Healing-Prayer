@@ -58,7 +58,7 @@ Never quietly pick one. Fix the losing document in the same change, and mention 
 
 ## 6. Status
 
-**Current phase:** Phase 1, UI with mock data (see `prd.md` section 13). Step 3 (homepage) awaiting merge.
+**Current phase:** Phase 1, UI with mock data (see `prd.md` section 13). Step 4 (auth screens and guards) awaiting merge.
 
 **Done**
 - PRD v3 written (admin-set schedule).
@@ -71,10 +71,11 @@ Never quietly pick one. Fix the losing document in the same change, and mention 
 - Lenis smooth scrolling. Canadian time zone setting. `ISAAC.md` created.
 - Phase 1 step 2: `lib/time.ts` (daylight saving safe), `lib/validation.ts`, `lib/errors.ts`, API client (`lib/api`), mock API served at `/api/*` in mock mode with seed data and demo accounts.
 - Phase 1 step 3: public layout (header with phone menu sheet, footer), homepage with all sections, live session times from the schedule, placeholder copy marked "Sample text".
+- Phase 1 step 4: register, login, forgot and reset password; `proxy.ts` and server guards for `/dashboard` and `/admin`; temporary welcome pages for both areas.
 
 **Next**
-1. Phase 1, step 4: auth screens (register, login, forgot and reset password) and the `/dashboard` and `/admin` guards.
-2. Then booking flow, member dashboard, admin bookings, admin schedule (`prd.md` section 13, Phase 1).
+1. Phase 1, step 5: the booking flow at `/book` (upcoming days list, calendar view, prayer point, confirm), matching the approved sample.
+2. Then member dashboard, admin bookings, admin schedule (`prd.md` section 13, Phase 1).
 
 **Open questions**
 - Church content still needed: about text, services, address, contact details, photos. Placeholders live in `src/features/home/content.ts` and `src/lib/church.ts`; set the `*_PLACEHOLDER(S)` flags to false when replaced.
@@ -89,6 +90,7 @@ Newest first. One line each.
 
 | Date | Decision |
 |---|---|
+| 2026-11-04 | Session cookie name `hp_session` (configurable with `SESSION_COOKIE_NAME`); added to `ISAAC.md`. |
 | 2026-11-04 | Placeholder content is shown with a "Sample text" mark and "photo to come" blocks until the church sends real content. No stock photos. |
 | 2026-11-04 | The mock API runs as a real `/api/*` inside the Next.js server (mock mode only), not in the browser, so server-side login checks work against it. |
 | 2026-11-04 | `ISAAC.md` holds everything the backend developer must build, with a dated "What's new" log. Updated whenever backend work changes. |

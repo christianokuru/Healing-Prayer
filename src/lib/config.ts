@@ -17,3 +17,9 @@ export const FALLBACK_TIMEZONE = "America/Toronto";
 
 export const PRAYER_POINT_MAX = 10_000;
 export const ADMIN_PAGE_SIZE = 20;
+
+/**
+ * Name of the httpOnly session cookie the backend sets. `proxy.ts` only checks that it
+ * exists (a shortcut, not security). Must match the backend (ISAAC.md section 1).
+ */
+export const SESSION_COOKIE = process.env.SESSION_COOKIE_NAME ?? "hp_session";

@@ -55,6 +55,15 @@ test.describe("site header", () => {
     }
   });
 
+  test("phone: the menu closes after following a link", async ({ page, isMobile }) => {
+    test.skip(!isMobile, "Phone only");
+    await page.goto("/");
+    await page.getByRole("button", { name: "Menu" }).click();
+    await page.getByRole("dialog", { name: "Menu" }).getByRole("link", { name: "Log in" }).click();
+    await expect(page).toHaveURL(/\/login$/);
+    await expect(page.getByRole("dialog", { name: "Menu" })).toBeHidden();
+  });
+
   test("desktop: links are inline and the menu button is hidden", async ({ page, isMobile }) => {
     test.skip(isMobile, "Desktop only");
     await page.goto("/");

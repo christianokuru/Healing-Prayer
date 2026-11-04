@@ -141,6 +141,13 @@ app/api/[...path]/route.ts   serves the mock at /api/* in mock mode only
 - Prayer point length uses code points: `[...s].length`. Never `s.length`.
 - The backend's `INVALID_INPUT.fields` is mapped onto form fields with `setError`. Unknown field errors go to a form-level message.
 - Submit buttons are disabled while pending. Double submits are impossible by construction.
+- Pattern: `useForm<z.input<S>, unknown, z.output<S>>({ resolver: zodResolver(S), mode: "onTouched" })`, then `<Field>{(control) => <Input {...control} {...register("name")} />}</Field>`. Server field errors go through `applyFieldErrors()` (`lib/forms.ts`); anything left over shows in a `Banner`.
+
+### Auth
+- `proxy.ts` only checks that the `SESSION_COOKIE` exists for `/dashboard/*` and `/admin/*`, then redirects to `/login?next=…`.
+- `RequireUser` (in the area layouts, inside `<Suspense>`) is the real page guard: no user → login with `next`; wrong role → `/dashboard`.
+- After login: `next` if `safeNext()` allows it, otherwise `homeFor(user)`. Then `router.refresh()` so the header updates.
+- The header's static parts (links, phone menu button) are in the static shell; only the account link streams in, so nothing the user taps is swapped out.
 
 ---
 
