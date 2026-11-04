@@ -71,13 +71,20 @@ describe("zonedToUtc", () => {
     expect(zonedToUtc("2026-11-01", "01:30", TZ)?.toISOString()).toBe("2026-11-01T05:30:00.000Z");
   });
 
-  it("works for other Canadian zones", () => {
-    expect(zonedToUtc("2026-11-12", "19:00", "America/Vancouver")?.toISOString()).toBe(
-      "2026-11-13T03:00:00.000Z",
-    );
-    expect(zonedToUtc("2026-11-12", "19:00", "America/St_Johns")?.toISOString()).toBe(
-      "2026-11-12T22:30:00.000Z",
-    );
+  // Provinces change their clock rules (British Columbia, for example), and machines carry
+  // different versions of the time zone database. So check the result in the zone itself
+  // instead of hard-coding a UTC value.
+  it.each([
+    "America/Vancouver",
+    "America/Edmonton",
+    "America/Winnipeg",
+    "America/Halifax",
+    "America/St_Johns",
+  ])("gives 7:00 PM local time on the right day in %s", (zone) => {
+    const instant = zonedToUtc("2026-11-12", "19:00", zone);
+    expect(instant).not.toBeNull();
+    expect(formatTime(instant!, zone)).toBe("7:00 PM");
+    expect(toDateKey(instant!, zone)).toBe("2026-11-12");
   });
 });
 

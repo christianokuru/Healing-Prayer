@@ -15,6 +15,7 @@ Newest first.
 
 | Date | Change | Where |
 |---|---|---|
+| 2026-11-04 | **Keep the time zone database up to date.** Provinces change their clock rules (our CI found British Columbia's November 2026 rule differs between tz database versions). Install the Python `tzdata` package and keep it, and the server's OS tzdata, current. Never hard-code offsets. | Section 5 |
 | 2026-11-04 | **Small contract details pinned down** while building the frontend's mock API: (1) `week_booked` only lists weeks that overlap the requested range; (2) preview `action` values are `create_rule`, `update_rule` (+ `id`), `delete_rule` (+ `id`), `add_blocked_date`; (3) field limits: full name 1–100 characters, email up to 254 (stored lowercased), password 8–128; (4) the frontend sends phone numbers already stripped of spaces, dashes, dots and brackets. | `prd.md` 3.3, 8.3, 8.6; this file 3.1, 3.2, 3.5 |
 | 2026-11-04 | **This file created.** Start with "Agree first", then work through the milestones. | Whole file |
 | 2026-11-04 | **Time zone is Canadian, not Nigerian.** Store it as a setting (`settings.timezone`, IANA name), placeholder `America/Toronto` until the church confirms. **Canada has daylight saving time:** generate slots in local time with `zoneinfo`, never with a fixed offset. 7:00 PM Thursday 12 Nov 2026 in Toronto is `2026-11-13T00:00:00Z`; 7:00 PM Thursday 11 Jun 2026 is `2026-06-11T23:00:00Z`. | `prd.md` 3.1 rule 1, section 9; this file "Slot rules" |
@@ -199,6 +200,8 @@ Build slots like this for each date `d` from `from` to `to`, in the church's tim
 5. Add any active booking in the range that does not match a generated slot (the schedule changed after it was booked), with its own start and end, as `taken` or `mine` and `bookable: false`.
 
 **Week** = Monday 00:00 to Sunday 23:59 in the church's time zone.
+
+Keep the time zone database current (Python `tzdata` package and OS tzdata). Clock rules change: British Columbia's rules for November 2026 differ between database versions.
 
 Booking validation must call the same function and check that the requested `slot_start` is one of the generated, bookable slots.
 

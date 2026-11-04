@@ -156,6 +156,7 @@ app/api/[...path]/route.ts   serves the mock at /api/* in mock mode only
 - Data is UTC ISO strings end to end. Convert to the church's time zone only at display, with `Intl.DateTimeFormat` and `timeZone` set to the value from `GET /api/schedule` (placeholder `America/Toronto`). Never hard-code the zone or an offset; Canada has daylight saving time. No date library unless `Intl` is truly not enough.
 - Church-time calendar dates (`YYYY-MM-DD`) for API queries are built with the same module.
 - `time.ts` has thorough unit tests: `2026-11-13T00:00:00Z` → Thursday 12 November, 7:00 PM in Toronto (the UTC date is a day ahead), the summer `23:00Z` case, and the weeks around the March and November clock changes.
+- Hard-code expected UTC values only for the church's zone examples. For other zones, test that the result reads correctly in that zone: clock rules change and machines carry different tz database versions (CI caught this with Vancouver).
 
 ---
 
