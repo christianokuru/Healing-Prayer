@@ -13,3 +13,6 @@ export function accountLink(user: User | null): NavLink {
   if (user.role === "admin") return { href: "/admin", label: "Admin" };
   return { href: "/dashboard", label: "My bookings" };
 }
+
+/** Pages whose top is the dusk sky: the header sits over it, transparent (UI.md section 4.1). */
+export const DUSK_PATHS = ["/", "/book"];

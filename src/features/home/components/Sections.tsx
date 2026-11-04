@@ -1,69 +1,97 @@
-import Link from "next/link";
 import type { ReactNode } from "react";
-import { CopyButton } from "@/components/ui";
+import {
+  ArchCard,
+  ButtonLink,
+  ChapelCandles,
+  CopyButton,
+  Divider,
+  Eyebrow,
+  Notice,
+  Verse,
+} from "@/components/ui";
 import { cn } from "@/lib/cn";
 import { CHURCH, CHURCH_DETAILS_ARE_PLACEHOLDERS, mapsUrl } from "@/lib/church";
-import { ABOUT, HERO, HOME_COPY_IS_PLACEHOLDER, SERVICES, STEPS } from "../content";
-import { PhotoPlaceholder, PlaceholderMark } from "./Placeholder";
+import { ABOUT, HERO, HOME_COPY_IS_PLACEHOLDER, MINISTRIES, STEPS, VERSE_BAND } from "../content";
+import { NextSessionPill } from "./NextSession";
+import { ArchPhoto, PlaceholderMark } from "./Placeholder";
 
-const primaryLink =
-  "inline-flex min-h-13 items-center justify-center rounded-full bg-plum px-7 font-bold text-plum-ink hover:brightness-110";
-const secondaryLink =
-  "inline-flex min-h-13 items-center justify-center rounded-full border-[1.5px] border-line bg-surface px-7 font-bold hover:border-plum";
+const ROMAN = ["I", "II", "III"];
 
-export function Section({
+function SectionHead({
   id,
   eyebrow,
   title,
   placeholder = false,
-  className,
-  children,
+  center = false,
 }: {
   id: string;
   eyebrow: string;
   title: string;
   placeholder?: boolean;
+  center?: boolean;
+}) {
+  return (
+    <div
+      className={cn(
+        "mb-8 flex max-w-[640px] flex-col gap-2.5",
+        center && "mx-auto items-center text-center",
+      )}
+    >
+      <Eyebrow>
+        {eyebrow}
+        <PlaceholderMark show={placeholder} />
+      </Eyebrow>
+      <h2 id={`${id}-title`} className="text-h2 text-plum">
+        {title}
+      </h2>
+    </div>
+  );
+}
+
+function Section({
+  id,
+  className,
+  children,
+}: {
+  id: string;
   className?: string;
   children: ReactNode;
 }) {
   return (
-    <section id={id} aria-labelledby={`${id}-title`} className={cn("py-14 md:py-20", className)}>
-      <div className="mx-auto flex max-w-content flex-col gap-8 gutter">
-        <div className="flex max-w-prose flex-col gap-2">
-          <p className="text-label text-muted uppercase">
-            {eyebrow}
-            <PlaceholderMark show={placeholder} />
-          </p>
-          <h2 id={`${id}-title`} className="text-h1">
-            {title}
-          </h2>
-        </div>
-        {children}
-      </div>
+    <section id={id} aria-labelledby={`${id}-title`} className={cn("py-16", className)}>
+      <div className="mx-auto max-w-content gutter">{children}</div>
     </section>
   );
 }
 
 export function Hero() {
   return (
-    <section aria-labelledby="hero-title" className="py-12 md:py-16 lg:py-24">
-      <div className="mx-auto grid max-w-content items-center gap-10 gutter lg:grid-cols-2 lg:gap-16">
-        <div className="flex flex-col gap-5">
-          <p className="text-label text-muted uppercase">{HERO.eyebrow}</p>
+    <section aria-labelledby="hero-title" className="dusk dusk-edge overflow-hidden">
+      <div className="mx-auto grid max-w-content items-end gap-9 pt-28 gutter pb-28 lg:grid-cols-[1.1fr_0.9fr] lg:pt-32">
+        <div className="flex flex-col gap-6">
+          <NextSessionPill />
           <h1 id="hero-title" className="text-display">
-            {HERO.title}
+            {HERO.titleStart} <em className="text-gold-glow">{HERO.titleEmphasis}</em>
           </h1>
-          <p className="max-w-prose text-muted">{HERO.text}</p>
+          <p className="max-w-[34ch] text-[1.1875rem] text-plum-soft">{HERO.text}</p>
+          <Verse
+            tone="dark"
+            variant="rule-left"
+            reference={HERO.verse.reference}
+            className="max-w-[32ch]"
+          >
+            {HERO.verse.text}
+          </Verse>
           <div className="flex flex-col gap-3 sm:flex-row">
-            <Link href="/book" className={primaryLink}>
-              Book prayer
-            </Link>
-            <a href="#how-it-works" className={secondaryLink}>
+            <ButtonLink href="/book" variant="gold">
+              Book a prayer session
+            </ButtonLink>
+            <ButtonLink href="#how-it-works" variant="outlineLight">
               How it works
-            </a>
+            </ButtonLink>
           </div>
         </div>
-        <PhotoPlaceholder label="Our prayer team" />
+        <ChapelCandles className="max-w-[420px] justify-self-center" />
       </div>
     </section>
   );
@@ -71,76 +99,88 @@ export function Hero() {
 
 export function About() {
   return (
-    <Section
-      id="about"
-      eyebrow="About us"
-      title={ABOUT.title}
-      placeholder={HOME_COPY_IS_PLACEHOLDER}
-      className="bg-surface"
-    >
-      <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-16">
+    <Section id="about">
+      <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
         <div className="flex max-w-prose flex-col gap-4">
-          {ABOUT.paragraphs.map((p) => (
-            <p key={p}>{p}</p>
-          ))}
+          <SectionHead
+            id="about"
+            eyebrow="About us"
+            title={ABOUT.title}
+            placeholder={HOME_COPY_IS_PLACEHOLDER}
+          />
+          <p className="dropcap">{ABOUT.paragraphs[0]}</p>
+          <p>{ABOUT.paragraphs[1]}</p>
+          <Verse variant="rules" reference={ABOUT.verse.reference} className="mt-4">
+            {ABOUT.verse.text}
+          </Verse>
         </div>
-        <PhotoPlaceholder label="Our church" />
+        <ArchPhoto label="Our chapel" />
       </div>
-    </Section>
-  );
-}
-
-export function Services() {
-  return (
-    <Section
-      id="what-we-do"
-      eyebrow="What we do"
-      title="Ways we serve"
-      placeholder={HOME_COPY_IS_PLACEHOLDER}
-    >
-      <ul className="grid gap-4 md:grid-cols-2">
-        {SERVICES.map((s) => (
-          <li
-            key={s.title}
-            className="flex flex-col gap-2 rounded-lg border border-line bg-surface p-5"
-          >
-            <h3 className="text-h3">{s.title}</h3>
-            <p className="text-muted">{s.text}</p>
-          </li>
-        ))}
-      </ul>
     </Section>
   );
 }
 
 export function HowItWorks() {
   return (
-    <Section id="how-it-works" eyebrow="Booking" title="How booking works" className="bg-surface">
-      <ol className="grid gap-4 md:grid-cols-3">
+    <Section id="how-it-works" className="pt-6">
+      <SectionHead id="how-it-works" eyebrow="Booking" title="How booking works" center />
+      <ol className="m-0 grid list-none gap-5 p-0 md:grid-cols-3">
         {STEPS.map((step, i) => (
-          <li
-            key={step.title}
-            className="flex gap-4 rounded-lg border border-line bg-bg p-5 md:flex-col"
-          >
-            <span
-              aria-hidden="true"
-              className="grid size-10 shrink-0 place-items-center rounded-full bg-plum font-display text-h3 font-semibold text-plum-ink"
-            >
-              {i + 1}
-            </span>
-            <div className="flex flex-col gap-1">
-              <h3 className="text-h3">{step.title}</h3>
+          <li key={step.title}>
+            <ArchCard framed={false} className="h-full gap-2 pt-11">
+              <span aria-hidden="true" className="font-caps text-[2.125rem] leading-none text-gold">
+                {ROMAN[i]}
+              </span>
+              <h3 className="text-h3 text-plum">{step.title}</h3>
               <p className="text-muted">{step.text}</p>
-            </div>
+            </ArchCard>
           </li>
         ))}
       </ol>
-      <p>
-        We email you a confirmation straight away.{" "}
-        <Link href="/book" className="font-bold text-plum underline underline-offset-4">
-          Book prayer now
-        </Link>
-      </p>
+    </Section>
+  );
+}
+
+export function VerseBand() {
+  return (
+    <div className="flex flex-col items-center gap-4 bg-[linear-gradient(90deg,transparent,var(--plum-soft),transparent)] px-5 py-14 text-center">
+      <Divider />
+      <Verse
+        reference={VERSE_BAND.reference}
+        className="max-w-[26ch] [&_blockquote]:text-[clamp(1.625rem,1.2rem+1.6vw,2.25rem)] [&_blockquote]:leading-tight"
+      >
+        {VERSE_BAND.text}
+      </Verse>
+    </div>
+  );
+}
+
+export function Ministries() {
+  return (
+    <Section id="ministries">
+      <SectionHead
+        id="ministries"
+        eyebrow="What we do"
+        title="Our ministries"
+        placeholder={HOME_COPY_IS_PLACEHOLDER}
+        center
+      />
+      <ul className="m-0 grid list-none border-y-[3px] border-double border-line p-0 lg:grid-cols-2 lg:gap-x-10">
+        {MINISTRIES.map((m) => (
+          <li
+            key={m.title}
+            className="border-b border-line px-1 py-5 last:border-b-0 lg:[&:nth-last-child(2)]:border-b-0"
+          >
+            <h3 className="text-h3 text-plum">
+              <span aria-hidden="true" className="mr-1.5 text-[1.125rem] text-gold">
+                ✠
+              </span>
+              {m.title}
+            </h3>
+            <p className="text-muted">{m.text}</p>
+          </li>
+        ))}
+      </ul>
     </Section>
   );
 }
@@ -155,7 +195,7 @@ function ContactRow({
   copyLabel: string;
 }) {
   return (
-    <div className="flex items-center justify-between gap-3 border-b border-line py-3 last:border-b-0">
+    <div className="flex items-center justify-between gap-3 border-t border-line pt-3 text-left">
       <div className="flex min-w-0 flex-col">
         <span className="text-small text-muted">{label}</span>
         <span className="font-bold break-words select-all">{value}</span>
@@ -165,31 +205,35 @@ function ContactRow({
   );
 }
 
-export function Contact() {
-  const address = CHURCH.addressLines.join(", ");
+export function FindUs() {
   return (
-    <Section
-      id="contact"
-      eyebrow="Visit or contact"
-      title="Find us"
-      placeholder={CHURCH_DETAILS_ARE_PLACEHOLDERS}
-    >
-      <div className="grid gap-8 lg:grid-cols-2 lg:gap-16">
-        <div className="rounded-lg border border-line bg-surface px-5">
-          <ContactRow label="Address" value={address} copyLabel="address" />
-          <ContactRow label="Phone" value={CHURCH.phone} copyLabel="phone number" />
-          <ContactRow label="Email" value={CHURCH.email} copyLabel="email address" />
-        </div>
-        <div className="flex flex-col items-start gap-4">
-          <p className="max-w-prose">
-            Prayer sessions take place in person at the church. Please arrive a few minutes early
-            and ask for the prayer team at the front desk.
-          </p>
-          <a href={mapsUrl()} target="_blank" rel="noopener noreferrer" className={secondaryLink}>
+    <Section id="contact" className="pt-4">
+      <Notice className="mx-auto max-w-[680px] text-center">
+        <Eyebrow>
+          Visit or contact
+          <PlaceholderMark show={CHURCH_DETAILS_ARE_PLACEHOLDERS} />
+        </Eyebrow>
+        <h2 id="contact-title" className="text-h2 text-plum">
+          Find us
+        </h2>
+        <p className="text-muted">
+          Prayer sessions take place in person at the church. Please arrive a few minutes early and
+          ask for the prayer team.
+        </p>
+        <ContactRow label="Address" value={CHURCH.addressLines.join(", ")} copyLabel="address" />
+        <ContactRow label="Phone" value={CHURCH.phone} copyLabel="phone number" />
+        <ContactRow label="Email" value={CHURCH.email} copyLabel="email address" />
+        <div className="pt-2">
+          <a
+            href={mapsUrl()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-bold text-plum underline underline-offset-4 hover:no-underline"
+          >
             Open in Google Maps
           </a>
         </div>
-      </div>
+      </Notice>
     </Section>
   );
 }

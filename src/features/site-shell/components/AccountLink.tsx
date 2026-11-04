@@ -4,7 +4,7 @@ import { cn } from "@/lib/cn";
 import { accountLink, type NavLink } from "../nav";
 
 const STYLES = {
-  bar: "ml-2 inline-flex min-h-11 items-center rounded-full border-[1.5px] border-line bg-surface px-5 font-bold hover:border-plum",
+  bar: "ml-2 inline-flex min-h-11 items-center rounded-full bg-plum px-5 font-bold text-plum-ink hover:bg-plum-2 group-data-[tone=dusk]:bg-plum-ink group-data-[tone=dusk]:text-plum group-data-[tone=dusk]:hover:brightness-95",
   menu: "flex min-h-13 items-center font-display text-h3 font-semibold",
 } as const;
 

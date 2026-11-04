@@ -58,7 +58,7 @@ Never quietly pick one. Fix the losing document in the same change, and mention 
 
 ## 6. Status
 
-**Current phase:** Phase 1, UI with mock data (see `prd.md` section 13). Step 4 (auth screens and guards) awaiting merge.
+**Current phase:** Phase 1, UI with mock data (see `prd.md` section 13). Candlelight × Manuscript restyle awaiting merge; then step 5 (booking).
 
 **Done**
 - PRD v3 written (admin-set schedule).
@@ -72,9 +72,11 @@ Never quietly pick one. Fix the losing document in the same change, and mention 
 - Phase 1 step 2: `lib/time.ts` (daylight saving safe), `lib/validation.ts`, `lib/errors.ts`, API client (`lib/api`), mock API served at `/api/*` in mock mode with seed data and demo accounts.
 - Phase 1 step 3: public layout (header with phone menu sheet, footer), homepage with all sections, live session times from the schedule, placeholder copy marked "Sample text".
 - Phase 1 step 4: register, login, forgot and reset password; `proxy.ts` and server guards for `/dashboard` and `/admin`; temporary welcome pages for both areas.
+- Dev server reachable from phones on the local network.
+- Visual style chosen and applied: Candlelight × Manuscript (UI.md). Tokens, fonts, ornaments, header/footer, homepage, auth screens and area placeholders restyled.
 
 **Next**
-1. Phase 1, step 5: the booking flow at `/book` (upcoming days list, calendar view, prayer point, confirm), matching the approved sample.
+1. Phase 1, step 5: the booking flow at `/book` (upcoming days list, calendar view, prayer point, confirm): behaviour from the booking sample, style from the Candlelight × Manuscript reference.
 2. Then member dashboard, admin bookings, admin schedule (`prd.md` section 13, Phase 1).
 
 **Open questions**
@@ -90,6 +92,9 @@ Newest first. One line each.
 
 | Date | Decision |
 |---|---|
+| 2026-11-04 | Visual style: **Candlelight × Manuscript** (dusk chapel, candles, arches; parchment, Cinzel caps, ✠, drop caps, order-of-service lists, KJV verses). Applies to every screen, dashboards included. Reference: https://claude.ai/artifact/AddXHW5nMkmh5k98MPPnyF |
+| 2026-11-04 | Light only for now; a night version may come later, so all colours stay tokens defined once on `:root`. |
+| 2026-11-04 | Fonts: Cormorant Garamond (display), Cinzel (labels), EB Garamond italic (verses), Atkinson Hyperlegible (all reading and forms). Replaces Lora. |
 | 2026-11-04 | Dev server allows local-network origins (`allowedDevOrigins`) so the site can be tested on a phone. |
 | 2026-11-04 | Session cookie name `hp_session` (configurable with `SESSION_COOKIE_NAME`); added to `ISAAC.md`. |
 | 2026-11-04 | Placeholder content is shown with a "Sample text" mark and "photo to come" blocks until the church sends real content. No stock photos. |
@@ -104,7 +109,7 @@ Newest first. One line each.
 | 2026-11-04 | UI is mobile first, then tablet, desktop and wide monitors. |
 | 2026-11-04 | Booking page is `/book`, public to browse, login required at Continue. |
 | 2026-11-04 | Booking screen opens on an "Upcoming days" list; the calendar is the second view. |
-| 2026-11-04 | Colours: deep plum with soft gold. Fonts: Lora and Atkinson Hyperlegible. Placeholder until the church chooses. No logo; text wordmark. |
+| 2026-11-04 | ~~Colours: deep plum with soft gold. Fonts: Lora and Atkinson Hyperlegible.~~ Replaced by Candlelight × Manuscript (above). No logo; text wordmark with a thin cross. |
 | 2026-11-04 | Live updates by polling every 5 seconds with SWR. SSE later if needed. |
 | 2026-11-04 | Admin sets session days, times and slot length. Changing the schedule never cancels bookings. |
 | 2026-11-04 | Keep the split: Next.js frontend (Chris), FastAPI backend (Isaac). Accounts required to book. |

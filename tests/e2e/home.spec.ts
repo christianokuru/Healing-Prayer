@@ -4,25 +4,28 @@ test.describe("homepage", () => {
   test("shows every section in order with live session times", async ({ page }) => {
     await page.goto("/");
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-      "Prayer, one-on-one, when you need it",
+      "Bring what is on your heart.",
     );
     const sections = await page.locator("main h2").allTextContents();
     expect(sections).toEqual([
       "A church that prays with you",
-      "When sessions run",
+      "When we gather to pray",
       "How booking works",
-      "Ways we serve",
+      "Our ministries",
       "Find us",
     ]);
     const sessions = page.locator("#sessions");
-    await expect(sessions.getByText("Thursdays", { exact: true })).toBeVisible();
+    await expect(sessions.getByText("Thursday", { exact: true })).toBeVisible();
     await expect(sessions.getByText("7:00 – 9:00 PM")).toBeVisible();
-    await expect(sessions.getByText(/Times are in Eastern Time/)).toBeVisible();
+    await expect(sessions.getByText(/All times in Eastern Time/)).toBeVisible();
+    await expect(
+      page.getByText(/^Next session · Thu \d+ \w+, 7:\d\d PM · \d times? free$/),
+    ).toBeVisible();
   });
 
   test("Book prayer goes to the booking page", async ({ page }) => {
     await page.goto("/");
-    await expect(page.getByRole("link", { name: "Book prayer" }).first()).toHaveAttribute(
+    await expect(page.getByRole("link", { name: "Book a prayer session" })).toHaveAttribute(
       "href",
       "/book",
     );

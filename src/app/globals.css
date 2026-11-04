@@ -1,74 +1,36 @@
 @import "tailwindcss";
 
 /*
- * Design tokens. Source of truth: UI.md section 3.
- * Raw values live on :root (light) and are redefined for dark.
- * Tailwind utilities read them through @theme inline below.
+ * Design tokens: Candlelight × Manuscript. Source of truth: UI.md section 3.
+ * Light only for now. Every colour is defined once here, so a night version can later
+ * redefine these same variables (for example under :root[data-theme="night"]).
  */
 
 :root {
-  --bg: #f7f5f9;
-  --surface: #ffffff;
-  --ink: #231a2b;
-  --muted: #645a6e;
-  --line: #e2dbe8;
-  --plum: #4b2a5e;
-  --plum-ink: #ffffff;
-  --plum-soft: #eee5f4;
-  --gold: #8a5f00;
-  --gold-soft: #f7edd3;
+  --bg: #f6efe3;
+  --surface: #fffaf1;
+  --ink: #2b1d33;
+  --muted: #65566b;
+  --line: #d6c3a3;
+  --plum: #3e2350;
+  --plum-2: #5a3570;
+  --plum-ink: #fff7ea;
+  --plum-soft: #ece0ea;
+  --gold: #7a560f;
+  --gold-bright: #c9962e;
+  --gold-glow: #f0c96a;
+  --gold-soft: #f6e9c8;
+  --night: #24142f;
   --ok: #2b6a4c;
-  --ok-soft: #e3f1e9;
+  --ok-soft: #e1efe5;
   --danger: #9e2a37;
-  --danger-soft: #fbe8ea;
-  --off: #edeaf0;
-  --shadow-color: 35 26 43;
-  --scrim: rgb(35 26 43 / 0.45);
+  --danger-soft: #f7e3e5;
+  --off: #ece5da;
+  --scrim: rgb(36 20 47 / 0.5);
+  --shadow-color: 43 29 51;
+  --dusk: linear-gradient(180deg, #24142f 0%, #45285a 36%, #8d566c 70%, #dca066 100%);
+  --dusk-short: linear-gradient(180deg, #24142f 0%, #4a2b5e 70%, #74466a 100%);
   color-scheme: light;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #16111a;
-    --surface: #211a27;
-    --ink: #f1ecf4;
-    --muted: #ada2b8;
-    --line: #3a2f43;
-    --plum: #cdaee2;
-    --plum-ink: #1c1322;
-    --plum-soft: #34253f;
-    --gold: #e6be62;
-    --gold-soft: #3a2f17;
-    --ok: #82cba5;
-    --ok-soft: #1b3328;
-    --danger: #f2939d;
-    --danger-soft: #3e1f25;
-    --off: #2a2231;
-    --shadow-color: 0 0 0;
-    --scrim: rgb(0 0 0 / 0.65);
-    color-scheme: dark;
-  }
-}
-
-:root[data-theme="dark"] {
-  --bg: #16111a;
-  --surface: #211a27;
-  --ink: #f1ecf4;
-  --muted: #ada2b8;
-  --line: #3a2f43;
-  --plum: #cdaee2;
-  --plum-ink: #1c1322;
-  --plum-soft: #34253f;
-  --gold: #e6be62;
-  --gold-soft: #3a2f17;
-  --ok: #82cba5;
-  --ok-soft: #1b3328;
-  --danger: #f2939d;
-  --danger-soft: #3e1f25;
-  --off: #2a2231;
-  --shadow-color: 0 0 0;
-  --scrim: rgb(0 0 0 / 0.65);
-  color-scheme: dark;
 }
 
 @theme inline {
@@ -80,10 +42,14 @@
   --color-muted: var(--muted);
   --color-line: var(--line);
   --color-plum: var(--plum);
+  --color-plum-2: var(--plum-2);
   --color-plum-ink: var(--plum-ink);
   --color-plum-soft: var(--plum-soft);
   --color-gold: var(--gold);
+  --color-gold-bright: var(--gold-bright);
+  --color-gold-glow: var(--gold-glow);
   --color-gold-soft: var(--gold-soft);
+  --color-night: var(--night);
   --color-ok: var(--ok);
   --color-ok-soft: var(--ok-soft);
   --color-danger: var(--danger);
@@ -91,42 +57,59 @@
   --color-off: var(--off);
   --color-scrim: var(--scrim);
 
-  --font-display: var(--font-lora), Georgia, "Times New Roman", serif;
+  --font-display: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  --font-caps: var(--font-cinzel), Georgia, "Times New Roman", serif;
+  --font-verse: var(--font-eb-garamond), Georgia, "Times New Roman", serif;
   --font-sans: var(--font-atkinson), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
   --shadow-raised:
-    0 1px 2px rgb(var(--shadow-color) / 0.06), 0 4px 16px rgb(var(--shadow-color) / 0.08);
+    0 1px 2px rgb(var(--shadow-color) / 0.06), 0 6px 20px rgb(var(--shadow-color) / 0.09);
 }
 
 @theme {
   /* Type scale: phone size → lg size, growing smoothly between 360 px and 1024 px. */
   --text-*: initial;
-  --text-display: clamp(1.875rem, 1.4rem + 2.108vw, 2.75rem);
-  --text-display--line-height: 1.15;
-  --text-h1: clamp(1.75rem, 1.547rem + 0.904vw, 2.125rem);
-  --text-h1--line-height: 1.2;
-  --text-h2: clamp(1.375rem, 1.307rem + 0.301vw, 1.5rem);
-  --text-h2--line-height: 1.25;
-  --text-h3: clamp(1.1875rem, 1.154rem + 0.151vw, 1.25rem);
-  --text-h3--line-height: 1.3;
+  --text-display: clamp(2.875rem, 1.52rem + 6.024vw, 5.375rem);
+  --text-display--line-height: 0.98;
+  --text-h1: clamp(2.375rem, 1.697rem + 3.012vw, 3.625rem);
+  --text-h1--line-height: 1.04;
+  --text-h2: clamp(2rem, 1.39rem + 2.711vw, 3.125rem);
+  --text-h2--line-height: 1.05;
+  --text-h3: clamp(1.5rem, 1.364rem + 0.602vw, 1.75rem);
+  --text-h3--line-height: 1.15;
+  --text-verse: clamp(1.25rem, 1.114rem + 0.602vw, 1.5rem);
+  --text-verse--line-height: 1.4;
   --text-body: clamp(1.0625rem, 1.029rem + 0.151vw, 1.125rem);
-  --text-body--line-height: 1.5;
+  --text-body--line-height: 1.6;
   --text-small: 0.9375rem;
-  --text-small--line-height: 1.45;
+  --text-small--line-height: 1.5;
   --text-label: 0.75rem;
   --text-label--line-height: 1.3;
-  --text-label--letter-spacing: 0.12em;
+  --text-label--letter-spacing: 0.2em;
 
   --radius-*: initial;
-  --radius-sm: 10px;
+  --radius-sm: 12px;
   --radius-md: 14px;
-  --radius-lg: 20px;
+  --radius-lg: 18px;
+  --radius-arch: 200px 200px 18px 18px;
   --radius-full: 9999px;
 
   --container-content: 1200px;
   --container-admin: 1440px;
   --container-dashboard: 960px;
   --container-form: 440px;
+
+  --animate-flicker: flicker 2.6s ease-in-out infinite;
+
+  @keyframes flicker {
+    0%,
+    100% {
+      transform: scale(1, 1) rotate(-1deg);
+    }
+    50% {
+      transform: scale(0.94, 1.07) rotate(1.5deg);
+    }
+  }
 }
 
 /* Side gutter per UI.md section 2: 16 / 24 / 32 / 40 px, always clear of notches. */
@@ -147,9 +130,75 @@
   }
 }
 
+/* Engraved small capitals for labels (UI.md 3.2). */
+@utility caps {
+  font-family: var(--font-caps);
+  font-size: var(--text-label);
+  line-height: var(--text-label--line-height);
+  letter-spacing: var(--text-label--letter-spacing);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* A thin outline a few pixels outside the border, like a printed frame (UI.md 3.4). */
+@utility frame {
+  outline: 1px solid var(--line);
+  outline-offset: 6px;
+}
+
+/* The dusk sky with faint light rays (UI.md 3.1). */
+@utility dusk {
+  position: relative;
+  isolation: isolate;
+  background: var(--dusk);
+  color: var(--plum-ink);
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: repeating-conic-gradient(
+      from 180deg at 72% -5%,
+      rgb(255 226 160 / 0.06) 0deg 3deg,
+      transparent 3deg 10deg
+    );
+    mask-image: radial-gradient(70% 60% at 72% 0%, #000, transparent 75%);
+  }
+}
+
+/* Curved parchment edge at the bottom of a dusk section. */
+@utility dusk-edge {
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 64px;
+    background-color: var(--bg);
+    clip-path: ellipse(72% 100% at 50% 100%);
+  }
+}
+
+/* Drop cap for the first letter of a paragraph (UI.md 3.4). */
+@utility dropcap {
+  &::first-letter {
+    float: left;
+    font-family: var(--font-caps);
+    font-size: 4.6em;
+    line-height: 0.8;
+    padding: 0.12em 0.14em 0 0;
+    color: var(--plum);
+    font-weight: 700;
+  }
+}
+
 @layer base {
   body {
-    background: var(--bg);
+    background-color: var(--bg);
+    /* Faint paper grain. */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .25 0 0 0 0 .12 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     color: var(--ink);
     font-family: var(--font-sans);
     font-size: var(--text-body);
@@ -173,6 +222,12 @@
   :focus-visible {
     outline: 3px solid var(--gold);
     outline-offset: 2px;
+  }
+
+  .dusk :focus-visible,
+  .bg-plum :focus-visible,
+  .bg-night :focus-visible {
+    outline-color: var(--gold-glow);
   }
 
   @media (prefers-reduced-motion: reduce) {

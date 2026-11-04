@@ -2,18 +2,25 @@
 
 import { useState, type ReactNode } from "react";
 import {
+  ArchCard,
   Badge,
   Banner,
   Button,
+  ButtonLink,
   Card,
+  ChapelCandles,
+  Divider,
   Dialog,
   EmptyState,
   Field,
   Input,
+  Notice,
+  OrderList,
   SegmentedToggle,
   Skeleton,
   Textarea,
   useToast,
+  Verse,
 } from "@/components/ui";
 
 // Visual reference for components/ui in every state (UI.md section 5).
@@ -65,6 +72,14 @@ export function ComponentGallery() {
           <Button variant="secondary">Back</Button>
           <Button variant="link">Change</Button>
           <Button disabled>Continue</Button>
+        </div>
+        <div className="dusk flex flex-col gap-3 rounded-lg p-5 sm:flex-row sm:flex-wrap">
+          <Button variant="gold">Book a prayer session</Button>
+          <Button variant="light">Book prayer</Button>
+          <Button variant="outlineLight">How it works</Button>
+          <ButtonLink href="/dev/tokens" variant="gold">
+            A link that looks like a button
+          </ButtonLink>
         </div>
         <Button block className="md:hidden">
           Full-width on phones
@@ -159,6 +174,52 @@ export function ComponentGallery() {
           <p>Thursday 12 November, 7:30 – 8:00 PM.</p>
           <p className="text-muted">The time will be free for someone else to book.</p>
         </Dialog>
+      </Section>
+
+      <Section title="Ornaments">
+        <Divider />
+        <div className="grid gap-6 md:grid-cols-2">
+          <Verse variant="rules" reference="Matthew 11:28">
+            Come unto me, all ye that labour and are heavy laden, and I will give you rest.
+          </Verse>
+          <div className="dusk rounded-lg p-5">
+            <Verse tone="dark" variant="rule-left" reference="James 5:16">
+              Pray one for another, that ye may be healed.
+            </Verse>
+          </div>
+          <OrderList
+            title="Order of the week"
+            items={[
+              { label: "Thursday", value: "7:00 – 9:00 PM" },
+              { label: "Each session", value: "30 minutes" },
+            ]}
+            footnote="All times in Eastern Time"
+          />
+          <div className="rounded-lg bg-plum p-5 text-plum-ink">
+            <OrderList
+              tone="dark"
+              title="On plum"
+              items={[{ label: "Book up to", value: "8 weeks ahead" }]}
+            />
+          </div>
+          <ArchCard>
+            <p className="caps text-gold">Your next session</p>
+            <p className="font-display text-h3 text-plum">Thursday 19 November</p>
+            <p className="font-bold">7:30 – 8:00 PM</p>
+          </ArchCard>
+          <Notice className="text-center">
+            <p className="caps text-gold">Notice</p>
+            <p>A framed notice with a double border.</p>
+          </Notice>
+          <Card framed>
+            <p className="caps text-gold">Thursday</p>
+            <p className="font-display text-h3 text-plum">12 November</p>
+            <p className="text-muted">A framed card, like a printed page.</p>
+          </Card>
+          <div className="dusk rounded-lg p-5">
+            <ChapelCandles className="mx-auto max-w-[260px]" />
+          </div>
+        </div>
       </Section>
 
       <Section title="Cards, loading and empty">

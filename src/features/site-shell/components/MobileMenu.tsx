@@ -30,7 +30,7 @@ export function MobileMenu({ links, account }: MobileMenuProps) {
         type="button"
         onClick={() => setOpen(true)}
         aria-haspopup="dialog"
-        className="inline-flex min-h-11 items-center gap-2 rounded-full border border-line bg-surface px-4 font-bold md:hidden"
+        className="inline-flex min-h-11 items-center gap-2 rounded-full border border-current px-4 font-bold md:hidden"
       >
         <svg
           aria-hidden="true"

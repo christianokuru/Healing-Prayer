@@ -61,6 +61,10 @@ export function ForgotPasswordForm() {
   return (
     <AuthCard
       title="Reset your password"
+      verse={{
+        text: "The Lord is nigh unto them that are of a broken heart.",
+        reference: "Psalm 34:18",
+      }}
       intro="Enter the email you signed up with. We will send you a link to choose a new password."
       footer={footer}
     >

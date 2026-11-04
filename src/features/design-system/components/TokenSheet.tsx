@@ -1,16 +1,20 @@
 // Visual reference for the design tokens in globals.css (UI.md section 3).
 
 const COLOURS = [
-  { name: "bg", use: "Page background" },
+  { name: "bg", use: "Parchment background" },
   { name: "surface", use: "Cards, panels, inputs" },
   { name: "ink", use: "Main text" },
   { name: "muted", use: "Secondary text" },
-  { name: "line", use: "Borders" },
-  { name: "plum", use: "Brand, main buttons" },
-  { name: "plum-ink", use: "Text on plum" },
-  { name: "plum-soft", use: "Full days, soft highlights" },
-  { name: "gold", use: "Accent, yours, focus" },
+  { name: "line", use: "Rules, borders, frames" },
+  { name: "plum", use: "Brand, headings, buttons" },
+  { name: "plum-2", use: "Hover on plum" },
+  { name: "plum-ink", use: "Text on plum and dusk" },
+  { name: "plum-soft", use: "Full days, verse bands" },
+  { name: "gold", use: "Labels, numerals, focus" },
+  { name: "gold-bright", use: "Gold buttons, fills" },
+  { name: "gold-glow", use: "Gold on dark" },
   { name: "gold-soft", use: "Your booking, info" },
+  { name: "night", use: "Footer, deepest dusk" },
   { name: "ok", use: "Free, success" },
   { name: "ok-soft", use: "Success background" },
   { name: "danger", use: "Errors, cancelled" },
@@ -21,42 +25,36 @@ const COLOURS = [
 const TYPE = [
   {
     token: "text-display",
-    className: "font-display text-display font-semibold",
-    sample: "Healing Prayer",
+    className: "text-display text-plum",
+    sample: "Bring what is on your heart.",
   },
+  { token: "text-h1", className: "text-h1 text-plum", sample: "Choose a time to be prayed with" },
+  { token: "text-h2", className: "text-h2 text-plum", sample: "When we gather to pray" },
+  { token: "text-h3", className: "text-h3 text-plum", sample: "Thursday 12 November" },
   {
-    token: "text-h1",
-    className: "font-display text-h1 font-semibold",
-    sample: "Book a prayer session",
-  },
-  {
-    token: "text-h2",
-    className: "font-display text-h2 font-semibold",
-    sample: "Thursday 12 November",
-  },
-  {
-    token: "text-h3",
-    className: "font-display text-h3 font-semibold",
-    sample: "Your next session",
+    token: "text-verse",
+    className: "font-verse text-verse italic text-plum",
+    sample: "“Pray one for another, that ye may be healed.”",
   },
   {
     token: "text-body",
     className: "text-body",
     sample: "One-on-one, 30 minutes, every Thursday evening.",
   },
-  { token: "text-body bold", className: "text-body font-bold", sample: "7:30 PM – 8:00 PM" },
+  { token: "text-body bold", className: "text-body font-bold", sample: "7:30 – 8:00 PM" },
   {
     token: "text-small",
     className: "text-small text-muted",
     sample: "Only church admins can read this.",
   },
-  { token: "text-label", className: "text-label text-muted uppercase", sample: "Thursday" },
+  { token: "caps", className: "caps text-gold", sample: "Order of the week" },
 ] as const;
 
 const RADII = [
-  { token: "rounded-sm", className: "rounded-sm", px: "10px" },
+  { token: "rounded-sm", className: "rounded-sm", px: "12px" },
   { token: "rounded-md", className: "rounded-md", px: "14px" },
-  { token: "rounded-lg", className: "rounded-lg", px: "20px" },
+  { token: "rounded-lg", className: "rounded-lg", px: "18px" },
+  { token: "rounded-arch", className: "rounded-arch", px: "arch" },
   { token: "rounded-full", className: "rounded-full", px: "pill" },
 ] as const;
 
@@ -78,8 +76,8 @@ export function TokenSheet() {
         <p className="text-label text-muted uppercase">Design tokens</p>
         <h1 className="text-h1">Healing Prayer North-West</h1>
         <p className="max-w-prose text-muted">
-          Every colour, size and shape used on the site. Values switch automatically between light
-          and dark.
+          Every colour, size and shape used on the site: Candlelight × Manuscript. Light only for
+          now.
         </p>
       </header>
 

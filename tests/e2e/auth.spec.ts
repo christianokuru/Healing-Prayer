@@ -20,7 +20,7 @@ test.describe("guards", () => {
     await expect(page).toHaveURL(/\/login\?next=%2Fdashboard$/);
     await logIn(page, MEMBER);
     await expect(page).toHaveURL(/\/dashboard$/);
-    await expect(page.getByRole("heading", { name: "Welcome, Ngozi" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Peace be with you, Ngozi" })).toBeVisible();
   });
 
   test("a member opening /admin is turned away to /dashboard", async ({ page }) => {
@@ -35,7 +35,7 @@ test.describe("guards", () => {
     await page.goto("/login");
     await logIn(page, ADMIN);
     await expect(page).toHaveURL(/\/admin$/);
-    await expect(page.getByRole("heading", { name: "Welcome, Pastor" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Peace be with you, Pastor" })).toBeVisible();
   });
 
   test("a logged-in member opening /login goes to their dashboard", async ({ page }) => {
@@ -62,7 +62,7 @@ test.describe("register, log out and log in", () => {
     await page.getByLabel("Password", { exact: true }).fill("longenough");
     await page.getByRole("button", { name: "Create account" }).click();
     await expect(page).toHaveURL(/\/dashboard$/);
-    await expect(page.getByRole("heading", { name: "Welcome, Amara" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Peace be with you, Amara" })).toBeVisible();
 
     await page.getByRole("button", { name: "Log out" }).click();
     await expect(page).toHaveURL(/\/$/);

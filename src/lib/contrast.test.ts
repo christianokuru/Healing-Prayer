@@ -26,7 +26,6 @@ function tokensIn(block: string): Record<string, string> {
 }
 
 const lightBlock = /:root\s*\{([^}]*)\}/.exec(css)?.[1] ?? "";
-const darkBlock = /:root\[data-theme="dark"\]\s*\{([^}]*)\}/.exec(css)?.[1] ?? "";
 
 // [text, background, minimum ratio]
 const PAIRS: [string, string, number][] = [
@@ -38,22 +37,25 @@ const PAIRS: [string, string, number][] = [
   ["muted", "bg", 4.5],
   ["muted", "surface", 4.5],
   ["muted", "off", 4.5],
+  ["muted", "plum-soft", 4.5],
   ["plum", "bg", 4.5],
   ["plum", "surface", 4.5],
   ["plum", "plum-soft", 4.5],
   ["plum-ink", "plum", 4.5],
+  ["plum-ink", "night", 4.5],
+  ["gold", "bg", 4.5], // labels and numerals
+  ["gold", "surface", 4.5],
   ["gold", "gold-soft", 4.5],
+  ["gold-glow", "night", 4.5], // labels on dark
+  ["gold-glow", "plum", 4.5],
+  ["night", "gold-bright", 4.5], // text on gold buttons
   ["ok", "ok-soft", 4.5],
   ["danger", "danger-soft", 4.5],
   ["danger", "surface", 4.5],
-  ["gold", "bg", 3], // focus ring
-  ["gold", "surface", 3], // focus ring
 ];
 
-describe.each([
-  ["light", tokensIn(lightBlock)],
-  ["dark", tokensIn(darkBlock)],
-])("%s theme tokens", (_theme, tokens) => {
+describe("light theme tokens", () => {
+  const tokens = tokensIn(lightBlock);
   it.each(PAIRS)("%s on %s meets %s:1", (fg, bg, min) => {
     const a = tokens[fg];
     const b = tokens[bg];

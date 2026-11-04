@@ -175,7 +175,8 @@ app/api/[...path]/route.ts   serves the mock at /api/* in mock mode only
 
 Design rules (tokens, breakpoints, component looks, screen layouts) live in `UI.md`. This section covers only how components are coded.
 
-- **`components/ui/`**: Button, Field, Input, Textarea, Card, Badge, Banner, Dialog, SegmentedToggle, Toast (`ToastProvider` + `useToast`), Skeleton, Spinner, EmptyState. Import them from `@/components/ui`. They take props, render markup and never fetch or know about the domain. Add Select when a screen needs it.
+- **`components/ui/`**: Button (+ `ButtonLink` for links that look like buttons), Field, Input, Textarea, PasswordInput, Card (`framed`), Badge, Banner, Dialog, SegmentedToggle, Toast (`ToastProvider` + `useToast`), Skeleton, Spinner, EmptyState, CopyButton, ornaments (`Cross`, `Divider`, `Eyebrow`, `Verse`, `Notice`, `ArchCard`, `OrderList`) and illustrations (`ChapelCandles`, `SingleCandle`). Import them from `@/components/ui`. They take props, render markup and never fetch or know about the domain. Add Select when a screen needs it.
+- **Style utilities** in `globals.css`: `gutter`, `caps` (engraved label), `frame` (printed outline), `dusk` and `dusk-edge` (dusk sky and its curved bottom), `dropcap`, `animate-flicker`. Header children that change on the dusk sky use `group-data-[tone=dusk]:` classes.
 - **Class names** are combined with `cn()` from `lib/cn.ts` (clsx + tailwind-merge). It is configured for our custom type tokens; never use `twMerge` directly.
 - **Field** uses a render prop so the label, hint and error are always linked: `<Field id label hint error>{(control) => <Input {...control} />}</Field>`.
 - **Dialog** is built on the native `<dialog>` (focus trap, inert page, Escape). State lives in the parent through `open` and `onClose`.
