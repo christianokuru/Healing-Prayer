@@ -55,7 +55,7 @@ Never quietly pick one. Fix the losing document in the same change, and mention 
 
 ## 6. Status
 
-**Current phase:** Phase 0, design tokens and project setup (see `prd.md` section 13).
+**Current phase:** Phase 0 done (awaiting merge). Next: Phase 1, UI with mock data (see `prd.md` section 13).
 
 **Done**
 - PRD v3 written (admin-set schedule).
@@ -63,11 +63,12 @@ Never quietly pick one. Fix the losing document in the same change, and mention 
 - `UI.md` written.
 - Booking screen sample approved: https://claude.ai/artifact/BoKn3TSyqcZyi4yL2iun8N
 - Repo set up (`christianokuru/healing-prayer`, Next.js 16.4.5 starter). Docs added to the repo.
+- Phase 0: code in `src/`, strict TypeScript, lint layer rules, Prettier, Vitest, Playwright, CI. Design tokens and fonts in `globals.css`. Token sheet at `/dev/tokens`, checked at 360 to 2560 px in light and dark. Token contrast test.
 
 **Next**
-1. Move `app/` into `src/` and add the tooling from `ENGINEERING.md` section 14.
-2. Add the design tokens and fonts from `UI.md` section 3.
-3. Build a token sample page and check it in light and dark at all test widths.
+1. Phase 1, step 1: shared components in `components/ui` (Button, Field, Card, Badge, Banner, Dialog, Toast, Skeleton, EmptyState).
+2. Phase 1, step 2: mock API (`lib/api/mock`) matching `prd.md` section 8, so screens can be built on it.
+3. Then the screens in `prd.md` section 13, Phase 1 order.
 
 **Open questions**
 - Church content still needed: about text, services, address, contact details, photos.
@@ -81,6 +82,7 @@ Newest first. One line each.
 
 | Date | Decision |
 |---|---|
+| 2026-11-04 | Light-mode gold darkened from `#9A6B00` to `#8A5F00` so gold text on gold-soft meets WCAG AA. |
 | 2026-11-04 | Work flow: one branch and one pull request per task; the user reviews and merges. `CLAUDE.md` loads `MASTER.md` and `AGENTS.md`. |
 | 2026-11-04 | Separate docs: `prd.md` (what), `ENGINEERING.md` (code), `UI.md` (design), `MASTER.md` (routine and status). |
 | 2026-11-04 | UI is mobile first, then tablet, desktop and wide monitors. |

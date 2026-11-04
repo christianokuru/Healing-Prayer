@@ -1,0 +1,179 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens. Source of truth: UI.md section 3.
+ * Raw values live on :root (light) and are redefined for dark.
+ * Tailwind utilities read them through @theme inline below.
+ */
+
+:root {
+  --bg: #f7f5f9;
+  --surface: #ffffff;
+  --ink: #231a2b;
+  --muted: #645a6e;
+  --line: #e2dbe8;
+  --plum: #4b2a5e;
+  --plum-ink: #ffffff;
+  --plum-soft: #eee5f4;
+  --gold: #8a5f00;
+  --gold-soft: #f7edd3;
+  --ok: #2b6a4c;
+  --ok-soft: #e3f1e9;
+  --danger: #9e2a37;
+  --danger-soft: #fbe8ea;
+  --off: #edeaf0;
+  --shadow-color: 35 26 43;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #16111a;
+    --surface: #211a27;
+    --ink: #f1ecf4;
+    --muted: #ada2b8;
+    --line: #3a2f43;
+    --plum: #cdaee2;
+    --plum-ink: #1c1322;
+    --plum-soft: #34253f;
+    --gold: #e6be62;
+    --gold-soft: #3a2f17;
+    --ok: #82cba5;
+    --ok-soft: #1b3328;
+    --danger: #f2939d;
+    --danger-soft: #3e1f25;
+    --off: #2a2231;
+    --shadow-color: 0 0 0;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #16111a;
+  --surface: #211a27;
+  --ink: #f1ecf4;
+  --muted: #ada2b8;
+  --line: #3a2f43;
+  --plum: #cdaee2;
+  --plum-ink: #1c1322;
+  --plum-soft: #34253f;
+  --gold: #e6be62;
+  --gold-soft: #3a2f17;
+  --ok: #82cba5;
+  --ok-soft: #1b3328;
+  --danger: #f2939d;
+  --danger-soft: #3e1f25;
+  --off: #2a2231;
+  --shadow-color: 0 0 0;
+  color-scheme: dark;
+}
+
+@theme inline {
+  /* Only our colours exist. Tailwind's default palette is removed on purpose. */
+  --color-*: initial;
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-plum: var(--plum);
+  --color-plum-ink: var(--plum-ink);
+  --color-plum-soft: var(--plum-soft);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-ok: var(--ok);
+  --color-ok-soft: var(--ok-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-off: var(--off);
+
+  --font-display: var(--font-lora), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-atkinson), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --shadow-raised:
+    0 1px 2px rgb(var(--shadow-color) / 0.06), 0 4px 16px rgb(var(--shadow-color) / 0.08);
+}
+
+@theme {
+  /* Type scale: phone size → lg size, growing smoothly between 360 px and 1024 px. */
+  --text-*: initial;
+  --text-display: clamp(1.875rem, 1.4rem + 2.108vw, 2.75rem);
+  --text-display--line-height: 1.15;
+  --text-h1: clamp(1.75rem, 1.547rem + 0.904vw, 2.125rem);
+  --text-h1--line-height: 1.2;
+  --text-h2: clamp(1.375rem, 1.307rem + 0.301vw, 1.5rem);
+  --text-h2--line-height: 1.25;
+  --text-h3: clamp(1.1875rem, 1.154rem + 0.151vw, 1.25rem);
+  --text-h3--line-height: 1.3;
+  --text-body: clamp(1.0625rem, 1.029rem + 0.151vw, 1.125rem);
+  --text-body--line-height: 1.5;
+  --text-small: 0.9375rem;
+  --text-small--line-height: 1.45;
+  --text-label: 0.75rem;
+  --text-label--line-height: 1.3;
+  --text-label--letter-spacing: 0.12em;
+
+  --radius-*: initial;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+
+  --container-content: 1200px;
+  --container-admin: 1440px;
+  --container-dashboard: 960px;
+  --container-form: 440px;
+}
+
+/* Side gutter per UI.md section 2: 16 / 24 / 32 / 40 px, always clear of notches. */
+@utility gutter {
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  @variant md {
+    padding-left: max(24px, env(safe-area-inset-left, 0px));
+    padding-right: max(24px, env(safe-area-inset-right, 0px));
+  }
+  @variant lg {
+    padding-left: max(32px, env(safe-area-inset-left, 0px));
+    padding-right: max(32px, env(safe-area-inset-right, 0px));
+  }
+  @variant xl {
+    padding-left: max(40px, env(safe-area-inset-left, 0px));
+    padding-right: max(40px, env(safe-area-inset-right, 0px));
+  }
+}
+
+@layer base {
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

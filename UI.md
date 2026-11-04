@@ -67,7 +67,7 @@ All colours, sizes and fonts come from tokens in `globals.css` (Tailwind v4 `@th
 | `plum` | `#4B2A5E` | `#CDAEE2` | Brand, main buttons, selected state |
 | `plum-ink` | `#FFFFFF` | `#1C1322` | Text on `plum` |
 | `plum-soft` | `#EEE5F4` | `#34253F` | Full days, chosen-time box, soft highlights |
-| `gold` | `#9A6B00` | `#E6BE62` | Accent, "yours", focus ring |
+| `gold` | `#8A5F00` | `#E6BE62` | Accent, "yours", focus ring |
 | `gold-soft` | `#F7EDD3` | `#3A2F17` | "Your booking" backgrounds, info banners |
 | `ok` / `ok-soft` | `#2B6A4C` / `#E3F1E9` | `#82CBA5` / `#1B3328` | Free, success, completed |
 | `danger` / `danger-soft` | `#9E2A37` / `#FBE8EA` | `#F2939D` / `#3E1F25` | Errors, cancelled |
