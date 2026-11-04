@@ -38,9 +38,9 @@ async function OrderOfTheWeek() {
 /** The plum band with the live schedule as an "order of the week" (UI.md section 6.1). */
 export function Sessions() {
   return (
-    <section id="sessions" aria-labelledby="sessions-title" className="py-10">
+    <section id="sessions" aria-labelledby="sessions-title" className="py-6 md:py-10">
       <div className="mx-auto max-w-content gutter">
-        <div className="relative grid gap-7 overflow-hidden rounded-[26px] bg-plum px-6 py-9 text-plum-ink before:absolute before:-top-16 before:-right-16 before:size-64 before:rounded-full before:bg-[radial-gradient(circle,rgb(255_210_122/0.32),transparent_70%)] lg:grid-cols-2 lg:items-center lg:p-12">
+        <div className="relative grid gap-6 overflow-hidden rounded-[22px] bg-plum px-5 py-7 text-plum-ink before:absolute before:-top-16 before:-right-16 before:size-64 before:rounded-full before:bg-[radial-gradient(circle,rgb(255_210_122/0.32),transparent_70%)] md:gap-7 md:rounded-[26px] md:px-6 md:py-9 lg:grid-cols-2 lg:items-center lg:p-12">
           <div className="relative flex flex-col gap-3">
             <Eyebrow tone="dark">Prayer sessions</Eyebrow>
             <h2 id="sessions-title" className="text-h2">

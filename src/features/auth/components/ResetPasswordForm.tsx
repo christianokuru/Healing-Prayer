@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
-import { Banner, Button, Field, PasswordInput } from "@/components/ui";
+import { Banner, Button, ButtonLink, Field, PasswordInput } from "@/components/ui";
 import { api } from "@/lib/api";
 import { isApiError, messageFor } from "@/lib/errors";
 import { applyFieldErrors } from "@/lib/forms";
@@ -26,12 +26,7 @@ function BadLink() {
       }
     >
       <p>Reset links work once and expire after 1 hour.</p>
-      <Link
-        href="/forgot-password"
-        className="inline-flex min-h-13 items-center justify-center rounded-full bg-plum px-6 font-bold text-plum-ink"
-      >
-        Send a new link
-      </Link>
+      <ButtonLink href="/forgot-password">Send a new link</ButtonLink>
     </AuthCard>
   );
 }
@@ -68,12 +63,7 @@ export function ResetPasswordForm() {
     return (
       <AuthCard title="Password changed">
         <p role="status">You can now log in with your new password.</p>
-        <Link
-          href="/login"
-          className="inline-flex min-h-13 items-center justify-center rounded-full bg-plum px-6 font-bold text-plum-ink"
-        >
-          Log in
-        </Link>
+        <ButtonLink href="/login">Log in</ButtonLink>
       </AuthCard>
     );
   }

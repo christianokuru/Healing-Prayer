@@ -15,7 +15,7 @@ Approved references (when this guide is silent, match them):
 1. **Mobile first.** Design and build the phone layout first, then add tablet, desktop and wide-screen layouts on top with `min-width` breakpoints only. Never design desktop first and squeeze it down.
 2. **Churchy, calm and warm.** It should feel like a chapel, not a generic website: dusk light, candles, arches, Scripture, parchment and ornament. Nothing loud. Many users come here at a hard moment.
 3. **Scripture is part of the design.** Every main screen carries a short King James Version verse that fits its job (public domain, so free to use).
-4. **Easy for everyone.** Large text, large tap targets, plain words. Assume an older user on a cheap Android phone.
+4. **Easy for everyone.** Clear text, tap targets of at least 44 px, plain words. On phones the site is compact and feels like an iPhone app (section 3.5); on tablets and desktops it is roomier.
 5. **One job per screen.** Each screen has one obvious main action.
 6. **Never lose what the user typed.** Drafts survive going back, errors and slot clashes.
 7. **Light on data.** Fast on a weak 3G connection.
@@ -43,7 +43,9 @@ Tailwind v4 default breakpoints. Build the base styles for phones, then layer up
 | | Phone | Tablet (`md`) | Desktop (`lg`) | Large / wide (`xl`, `2xl`) |
 |---|---|---|---|---|
 | Side gutter | 16 px | 24 px | 32 px | 40 px |
-| Body text | 17 px | 17 px | 18 px | 18 px |
+| Body text | 15 px | 16–17 px | 18 px | 18 px |
+| Buttons and fields | 44 px tall, 15 px text | 52 px, 17 px | 52 px, 18 px | same |
+| Body font | System font (SF Pro on iPhone) | Atkinson Hyperlegible | same | same |
 | Navigation | Top bar + menu sheet | Top bar with inline links | Same (admin: left sidebar) | Same |
 | Content width | Full | Full | Max 1200 px, centred | Max 1200 px (admin 1440 px), centred |
 | Reading text | Full | Max 65ch | Max 65ch | Max 65ch |
@@ -97,26 +99,27 @@ All colours, sizes and fonts come from tokens in `globals.css` (Tailwind v4 `@th
 | Display | Cormorant Garamond | 600, 600 italic | Page titles, section headings, dates on cards |
 | Caps | Cinzel | 600, 700 | Small engraved labels, Roman numerals, drop caps |
 | Verse | EB Garamond | 400 italic | Scripture and quotes |
-| Text | Atkinson Hyperlegible | 400, 700 | Everything people read or type: body, forms, buttons, times |
+| Text | Atkinson Hyperlegible on `md`+; the system font on phones (SF Pro on iPhone, Roboto on Android) | 400, 700 | Everything people read or type: body, forms, buttons, times |
 
 Loaded with `next/font/google`, Latin subset only, `display: swap`. Forms, times and booking details always use Atkinson Hyperlegible for readability.
 
 | Token | Phone | `lg` and up | Font | Use |
 |---|---|---|---|---|
-| `text-display` | 46 px | 86 px | Display | Homepage hero only |
-| `text-h1` | 38 px | 58 px | Display | Page titles, banners |
-| `text-h2` | 32 px | 50 px | Display | Section headings |
-| `text-h3` | 24 px | 28 px | Display | Card titles, dates |
-| `text-verse` | 20 px | 24 px | Verse | Scripture lines |
-| `text-body` | 17 px | 18 px | Text | Body text |
-| `text-small` | 15 px | 15 px | Text | Notes, helper text |
-| `text-label` | 12 px | 12 px | Caps | Engraved labels, uppercase, `0.2em` tracking |
+| `text-display` | 34 px | 86 px | Display | Homepage hero only |
+| `text-h1` | 28 px | 58 px | Display | Page titles, banners |
+| `text-h2` | 26 px | 50 px | Display | Section headings |
+| `text-h3` | 19 px | 28 px | Display | Card titles, dates |
+| `text-verse` | 17 px | 24 px | Verse | Scripture lines |
+| `text-body` | 15 px | 18 px | Text | Body text (line height 1.45) |
+| `text-small` | 13 px | 15 px | Text | Notes, helper text |
+| `text-label` | 10.5 px | 12 px | Caps | Engraved labels, uppercase, `0.2em` tracking |
+| `text-field` | 16 px | 18 px | Text | Inputs and textareas. Never below 16 px on phones, or iOS zooms in on focus. |
 
 - Use `clamp()` so sizes grow smoothly between phone and `lg`.
-- Line height: 1.6 for body, 1.05–1.2 for display. Headings use `text-wrap: balance`.
+- Line height: 1.45 for body, 1.3 for verses, 1–1.15 for display. Headings use `text-wrap: balance`.
 - Italic display words in `gold-glow` (on dusk) or `plum` (on light) may emphasise one phrase per heading, e.g. "Bring what is on *your heart.*"
 - Numbers that line up (times, dates in tables) use `tabular-nums`.
-- Never below 15 px for anything a user must read; 12 px only for Cinzel labels.
+- Never below 13 px for anything a user must read; smaller only for Cinzel labels.
 
 ### 3.3 Spacing, radius, shadow, motion
 
@@ -145,6 +148,18 @@ Manuscript details that give the site its character. Use them to mark structure,
 | **Roman numerals** (Cinzel, `gold`) | Steps: How booking works, booking progress |
 | **Arch** | Hero illustration, photo frames, step cards, auth card, "Your next session" card |
 | **Candles** (SVG, flames flicker) | Hero chapel, a single candle on the auth card |
+
+
+### 3.5 Phones: the iPhone feel
+
+Below `md` (768 px) only. Tablets and desktops are unchanged.
+
+- **Compact sizes:** the phone column of the type table, 44 px buttons and fields, tighter section spacing (about 40 px between sections instead of 64).
+- **System font** for body text, buttons and forms, so it reads like an iPhone app. Headings, labels and verses keep the church fonts.
+- **Buttons:** 15 px semibold, and they dip slightly (scale 0.97) when pressed.
+- **Header on parchment:** frosted glass (translucent parchment with a blur) that stays at the top while scrolling, with a thin rule underneath. On dusk pages it stays transparent over the sky.
+- **Menu and sheets:** bottom sheets with a grab handle and 22 px top corners. Menu links are an inset grouped list: a rounded group, thin separators, 17 px rows, a › chevron on each.
+- **No tap highlight flash**, and text size is not auto-adjusted by the phone.
 
 ---
 
