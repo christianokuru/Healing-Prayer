@@ -247,6 +247,7 @@ API data stays `snake_case` as received. No casing conversion layer.
 - Scripts: `dev`, `build`, `start`, `lint`, `typecheck` (runs `next typegen` first so route types like `LayoutProps` exist), `format`, `format:check`, `test`, `test:watch`, `test:e2e`. `gen:api` is added in Phase 2.
 - Tests: Vitest with jsdom (`vitest.config.mts`), Playwright with `phone` (Pixel 7) and `desktop` (1440 px) projects against a production build in mock mode. `@playwright/test` is pinned to the browser version installed in the dev environment.
 - Design tokens have a contrast test (`src/lib/contrast.test.ts`) that fails if any text colour pair drops below WCAG AA in either theme.
+- `next.config.ts` sets `allowedDevOrigins` (192.168.\*.\*, 10.\*.\*.\*, \*.local, plus `DEV_ALLOWED_ORIGINS`) so phones on the local network can load the dev server's JavaScript. Without it, pages render but nothing interactive works.
 - CI (`.github/workflows/ci.yml`) runs `format:check`, `lint`, `typecheck`, `test`, `build` and the mock-mode Playwright suite on every pull request and on pushes to `main`.
 
 ---
