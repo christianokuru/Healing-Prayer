@@ -219,10 +219,12 @@ API data stays `snake_case` as received. No casing conversion layer.
 
 ## 14. Tooling
 
-- ESLint: `next/core-web-vitals`, `@typescript-eslint/strict`, `import/no-restricted-paths` (section 2), `no-console` (warn, allow `error`).
-- Prettier with defaults plus `prettier-plugin-tailwindcss`.
-- Scripts: `dev`, `build`, `lint`, `typecheck`, `test`, `test:e2e`, `gen:api`.
-- CI runs `lint`, `typecheck`, `test`, `build` and the mock-mode Playwright suite on every push.
+- ESLint: `next/core-web-vitals`, `typescript-eslint` strict, `import/no-restricted-paths` and `no-restricted-imports` for the layer rules (section 2), `no-restricted-globals` so only `lib/api` calls `fetch`, `no-console` (warn, allow `error`).
+- Prettier with `printWidth: 100` plus `prettier-plugin-tailwindcss` (sorts classes).
+- Scripts: `dev`, `build`, `start`, `lint`, `typecheck` (runs `next typegen` first so route types like `LayoutProps` exist), `format`, `format:check`, `test`, `test:watch`, `test:e2e`. `gen:api` is added in Phase 2.
+- Tests: Vitest with jsdom (`vitest.config.mts`), Playwright with `phone` (Pixel 7) and `desktop` (1440 px) projects against a production build in mock mode. `@playwright/test` is pinned to the browser version installed in the dev environment.
+- Design tokens have a contrast test (`src/lib/contrast.test.ts`) that fails if any text colour pair drops below WCAG AA in either theme.
+- CI (`.github/workflows/ci.yml`) runs `format:check`, `lint`, `typecheck`, `test`, `build` and the mock-mode Playwright suite on every pull request and on pushes to `main`.
 
 ---
 
