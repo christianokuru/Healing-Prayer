@@ -7,10 +7,10 @@ const LOOK_AHEAD_DAYS = 27;
 
 function Pill({ children }: { children: React.ReactNode }) {
   return (
-    <p className="inline-flex items-center gap-2.5 self-start rounded-full border border-plum-ink/35 bg-plum-ink/15 px-4 py-2.5 text-small">
+    <p className="inline-flex items-center gap-2 self-start rounded-full border border-plum-ink/35 bg-plum-ink/15 px-3 py-1.5 text-[0.6875rem] leading-tight font-medium tracking-[0.01em] md:gap-2.5 md:px-4 md:py-2 md:text-[0.8125rem]">
       <span
         aria-hidden="true"
-        className="size-2.5 shrink-0 rounded-full bg-gold-glow shadow-[0_0_12px_var(--gold-glow)]"
+        className="size-1.5 shrink-0 rounded-full bg-gold-glow shadow-[0_0_8px_var(--gold-glow)] md:size-2"
       />
       <span>{children}</span>
     </p>
