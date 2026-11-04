@@ -72,6 +72,7 @@ All colours, sizes and fonts come from tokens in `globals.css` (Tailwind v4 `@th
 | `ok` / `ok-soft` | `#2B6A4C` / `#E3F1E9` | `#82CBA5` / `#1B3328` | Free, success, completed |
 | `danger` / `danger-soft` | `#9E2A37` / `#FBE8EA` | `#F2939D` / `#3E1F25` | Errors, cancelled |
 | `off` | `#EDEAF0` | `#2A2231` | Disabled, taken, no session |
+| `scrim` | `rgb(35 26 43 / 0.45)` | `rgb(0 0 0 / 0.65)` | Dim layer behind dialogs and sheets |
 
 - Light is the default. Dark follows the device setting.
 - Every text and background pair meets WCAG AA (4.5:1 for text, 3:1 for large text and UI edges). Check any new pair before using it.
@@ -107,6 +108,11 @@ Loaded with `next/font/google`, Latin subset only, `display: swap`.
 - **Radius:** `sm` 10 px (buttons in grids, inputs), `md` 14 px (boxes, banners), `lg` 20 px (cards, panels), `full` for pills and main buttons.
 - **Shadow:** one soft shadow token, used only on raised things (sticky bar, active toggle, dialogs). Cards use a border, not a shadow.
 - **Motion:** 150–200 ms ease-out for state changes. One special animation only: the red flash when a slot is just taken. Everything respects `prefers-reduced-motion`.
+- **Smooth scrolling (Lenis):** the whole site uses Lenis for mouse wheel and trackpad scrolling.
+  - Touch scrolling on phones and tablets stays native (`syncTouch` off).
+  - Off entirely when the user prefers reduced motion.
+  - Paused under an open dialog. Inner scroll areas (textareas, dialogs, anything with `data-lenis-prevent`) scroll natively.
+  - In-page anchor links scroll smoothly through Lenis.
 
 ---
 
@@ -274,7 +280,7 @@ Every screen that loads data has all four of these:
 - Homepage under 200 KB of JS on first load. Largest content shows within 2.5 s on a mid-range phone over 4G.
 - Two font families, Latin subset only, no extra weights.
 - Images: `next/image`, responsive sizes, lazy below the fold, no image over 200 KB.
-- No carousels, background videos or animation libraries.
+- No carousels, background videos or animation libraries, except Lenis for smooth scrolling (section 3.3).
 
 ---
 

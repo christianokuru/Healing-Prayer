@@ -28,7 +28,7 @@ A small website for **Healing Prayer North-West** where members book one-on-one 
 | Database, auth, checks, schedule and slot logic, emails, rate limits | Backend (Isaac) |
 | The API in section 8 | Agreed by both, then frozen |
 
-**Isaac:** start with the checklist in section 16, then read sections 3 and 8 to 11.
+**Isaac:** start with **`ISAAC.md`** (your to-do list and every endpoint), then read sections 3 and 8 to 11 here for full detail.
 
 ---
 
@@ -101,7 +101,11 @@ The backend enforces every rule. The frontend repeats some checks for a smoother
 
 ### 3.1 Schedule (set by the admin)
 
-1. All times are in **`Africa/Lagos`** (UTC+1, no daylight saving). This is fixed, not a setting.
+1. All times are in the **church's time zone**, stored as a backend setting (`settings.timezone`, an IANA name). **Placeholder: `America/Toronto`** (Eastern Time) until the church confirms its location in Canada. Changing it needs no code change.
+   - Canada uses **daylight saving time**, so the UTC offset changes during the year (Toronto: UTC−5 in winter, UTC−4 from March to November).
+   - A 7:00 PM session stays 7:00 PM local time all year. Its UTC value moves by an hour when the clocks change.
+   - Never compute with a fixed offset. Generate slots in local time with the time zone database (Python `zoneinfo`), then convert to UTC.
+   - Clock changes happen at 2:00 AM, but rules must still be safe: skip a local time that does not exist, and use the first occurrence of a local time that happens twice.
 2. The admin creates **session rules**. Each rule is: a weekday, a start time, an end time and a slot length.
    - Example: Thursday, 19:00 to 21:00, 30 minutes. This gives 4 slots: 19:00, 19:30, 20:00, 20:30.
    - A weekday can have more than one rule (for example a morning and an evening session). Rules on the same day must not overlap.
@@ -114,7 +118,7 @@ The backend enforces every rule. The frontend repeats some checks for a smoother
 ### 3.2 Bookings
 
 6. **One person per slot.**
-7. A member can hold **one active booking per week**. A week runs Monday 00:00 to Sunday 23:59, Lagos time.
+7. A member can hold **one active booking per week**. A week runs Monday 00:00 to Sunday 23:59, in the church's time zone.
 8. Past slots cannot be booked. A slot that has already started counts as past.
 9. A cancelled booking frees its slot straight away.
 10. Members can cancel their own booking any time **before it starts**.
@@ -122,7 +126,7 @@ The backend enforces every rule. The frontend repeats some checks for a smoother
 
 ### 3.3 Data
 
-12. The API sends and receives all times as ISO 8601 in UTC. The frontend shows them in Lagos time. Example: 7:00 PM Lagos is `18:00:00Z`.
+12. The API sends and receives all times as ISO 8601 in UTC. The frontend shows them in the church's time zone, which it reads from `GET /api/schedule`. Example (Toronto): 7:00 PM on Thursday 12 November is `2026-11-13T00:00:00Z` (winter, UTC−5); 7:00 PM on Thursday 11 June is `2026-06-11T23:00:00Z` (summer, UTC−4).
 13. Prayer point: required, 1 to 10,000 characters. Both sides count Unicode code points (in JavaScript use `[...text].length`, not `text.length`).
 14. Phone: digits with an optional leading `+`, 7 to 15 digits.
 15. Password: at least 8 characters.
@@ -214,7 +218,7 @@ How the code is written: **`ENGINEERING.md`**. How every screen looks and is lai
 ## 8. API
 
 - JSON fields use `snake_case`.
-- Times are ISO 8601 UTC strings (`2026-11-12T18:00:00Z`). Plain dates are `YYYY-MM-DD` in Lagos time. Clock times in rules are `HH:MM` in Lagos time.
+- Times are ISO 8601 UTC strings (`2026-11-13T00:00:00Z`). Plain dates are `YYYY-MM-DD` in the church's time zone. Clock times in rules are `HH:MM` local time in the church's time zone.
 - Every error has this shape, including validation errors:
 
 ```json
@@ -251,7 +255,7 @@ How the code is written: **`ENGINEERING.md`**. How every screen looks and is lai
 `user` object:
 
 ```json
-{ "id": "uuid", "full_name": "Ngozi Okafor", "email": "ngozi@example.com", "phone": "+2348012345678", "role": "user" }
+{ "id": "uuid", "full_name": "Ngozi Okafor", "email": "ngozi@example.com", "phone": "+14165550123", "role": "user" }
 ```
 
 Reset tokens last 1 hour and work once.
@@ -262,7 +266,7 @@ Reset tokens last 1 hour and work once.
 
 ```json
 {
-  "timezone": "Africa/Lagos",
+  "timezone": "America/Toronto",
   "booking_window_weeks": 8,
   "rules": [ { "weekday": 4, "start_time": "19:00", "end_time": "21:00", "slot_minutes": 30 } ]
 }
@@ -274,19 +278,19 @@ Reset tokens last 1 hour and work once.
 
 **`GET /api/slots?from=YYYY-MM-DD&to=YYYY-MM-DD`**
 
-- `from` and `to` are Lagos dates, both included. Range limit 62 days.
+- `from` and `to` are dates in the church's time zone, both included. Range limit 62 days.
 - Returns **every** slot in the range that the schedule offers, plus any slot that still holds an active booking. Never includes names.
 - `state`: `free`, `taken` or `mine` (`mine` only when logged in).
 - `bookable`: false for past slots, slots beyond the window, or slots blocked by the weekly limit for this member.
-- `week_booked`: Monday dates (Lagos) of weeks where the logged-in member already has a booking.
+- `week_booked`: Monday dates (church time zone) of weeks where the logged-in member already has a booking.
 - Header: `Cache-Control: no-store`.
 
 ```json
 {
   "slots": [
-    { "start": "2026-11-12T18:00:00Z", "end": "2026-11-12T18:30:00Z", "state": "free",  "bookable": true },
-    { "start": "2026-11-12T18:30:00Z", "end": "2026-11-12T19:00:00Z", "state": "mine",  "bookable": false },
-    { "start": "2026-11-12T19:00:00Z", "end": "2026-11-12T19:30:00Z", "state": "taken", "bookable": false }
+    { "start": "2026-11-13T00:00:00Z", "end": "2026-11-13T00:30:00Z", "state": "free",  "bookable": true },
+    { "start": "2026-11-13T00:30:00Z", "end": "2026-11-13T01:00:00Z", "state": "mine",  "bookable": false },
+    { "start": "2026-11-13T01:00:00Z", "end": "2026-11-13T01:30:00Z", "state": "taken", "bookable": false }
   ],
   "week_booked": ["2026-11-09"]
 }
@@ -300,7 +304,7 @@ This is the only endpoint the polling hook calls.
 
 ```json
 // request
-{ "slot_start": "2026-11-12T18:00:00Z", "prayer_point": "..." }
+{ "slot_start": "2026-11-13T00:00:00Z", "prayer_point": "..." }
 // 201 response
 { "appointment": { "id": "uuid", "slot_start": "...", "slot_end": "...", "status": "booked", "prayer_point": "...", "created_at": "..." } }
 ```
@@ -323,7 +327,7 @@ Backend steps: check the session, check the body, check that the slot exists in 
 
 ```json
 { "appointments": [ { "id": "uuid", "slot_start": "...", "slot_end": "...", "status": "booked", "prayer_point": "...", "created_at": "...", "cancelled_by": null,
-    "user": { "id": "...", "full_name": "Ngozi Okafor", "email": "ngozi@example.com", "phone": "+2348012345678" } } ],
+    "user": { "id": "...", "full_name": "Ngozi Okafor", "email": "ngozi@example.com", "phone": "+14165550123" } } ],
   "page": 1, "page_size": 20, "total": 37 }
 ```
 
@@ -348,7 +352,7 @@ Backend steps: check the session, check the body, check that the slot exists in 
 
 ```json
 {
-  "timezone": "Africa/Lagos",
+  "timezone": "America/Toronto",
   "booking_window_weeks": 8,
   "rules": [ { "id": "uuid", "weekday": 4, "start_time": "19:00", "end_time": "21:00", "slot_minutes": 30, "active": true } ],
   "blocked_dates": [ { "id": "uuid", "date": "2026-12-24", "reason": "Christmas Eve" } ]
@@ -408,7 +412,8 @@ create table blocked_date (
 
 create table settings (
   id                    smallint primary key default 1 check (id = 1),  -- one row only
-  booking_window_weeks  smallint not null default 8 check (booking_window_weeks between 1 and 26)
+  booking_window_weeks  smallint not null default 8 check (booking_window_weeks between 1 and 26),
+  timezone              text not null default 'America/Toronto'  -- IANA name; placeholder until the church confirms
 );
 
 create table appointment (
@@ -536,7 +541,7 @@ NEXT_PUBLIC_USE_MOCK=false
 | 2 | JSON casing | `snake_case` |
 | 3 | Hosting | Both on one VPS behind Nginx |
 | 4 | Member confirmation email | Yes |
-| 5 | Bookings per member | One active booking per week (Mon to Sun, Lagos) |
+| 5 | Bookings per member | One active booking per week (Mon to Sun, church time zone) |
 | 6 | Admin actions on bookings | Mark completed or cancelled. No rescheduling |
 | 7 | Who sets the schedule | Admin, from `/admin/schedule` |
 | 8 | Schedule change with existing bookings | Bookings stay. Admin is shown how many are affected |
@@ -544,6 +549,7 @@ NEXT_PUBLIC_USE_MOCK=false
 | 10 | Member cancel | Any time before the slot starts |
 | 11 | Email verification | Off in v1 |
 | 12 | Number of admins | Several |
+| 13 | Time zone | Church's Canadian time zone, a backend setting. Placeholder `America/Toronto` until the location is confirmed |
 
 ---
 
@@ -556,7 +562,8 @@ NEXT_PUBLIC_USE_MOCK=false
 - A slot booked on another device shows as taken within about 5 seconds.
 - `SLOT_TAKEN` clears the chosen slot, refreshes the times, keeps the prayer point and shows a clear message.
 - Logged-out visitors are sent away from `/dashboard` and `/admin`. A member who opens `/admin` is sent away.
-- Times show in Lagos time. A 7:00 PM slot comes from the API as `18:00:00Z`.
+- Times show in the church's time zone from `GET /api/schedule`. With `America/Toronto`, a 7:00 PM slot on 12 November arrives as `2026-11-13T00:00:00Z` and shows as Thursday 12 November, 7:00 PM.
+- Across a daylight saving change, the same weekly rule still shows 7:00 PM on both sides of the change.
 - No prayer point appears in a URL, a log or browser storage.
 
 **Schedule**
@@ -579,35 +586,4 @@ NEXT_PUBLIC_USE_MOCK=false
 
 ## 16. Backend checklist (for Isaac)
 
-### Database
-- [ ] Tables: `users`, `session_rule`, `blocked_date`, `settings` (one row), `appointment`, `password_reset_token`.
-- [ ] Overlap guard on `appointment` (exclusion constraint, section 9).
-- [ ] Script to create the first admin.
-- [ ] Seed one rule to start: Thursday 19:00 to 21:00, 30 minutes.
-
-### Endpoints
-- [ ] Auth: register, login, logout, me, forgot-password, reset-password.
-- [ ] Public: `GET /api/schedule`, `GET /api/slots`, `GET /api/health`.
-- [ ] Member: create, list mine, cancel.
-- [ ] Admin bookings: list, get one, update status.
-- [ ] Admin schedule: get, rules CRUD, blocked dates add and remove, settings, preview.
-- [ ] Later: `GET /api/slots/stream`.
-
-### Rules
-- [ ] One function that builds slots for a date range from rules, blocked dates and window. Used by `GET /api/slots` and to check new bookings.
-- [ ] All schedule maths in `Africa/Lagos`, stored and returned in UTC.
-- [ ] Turn the exclusion-constraint error into `409 SLOT_TAKEN`.
-- [ ] Weekly limit checked inside the booking transaction.
-- [ ] Same error shape and codes for every error, including validation.
-- [ ] Never delete bookings.
-
-### Emails
-- [ ] All emails in section 10. No prayer points in emails.
-- [ ] Email failure never fails the request. Log and retry once.
-- [ ] SPF and DKIM.
-
-### Operations
-- [ ] argon2 password hashing. Rate limits on login, register, reset, booking.
-- [ ] Publish the OpenAPI schema.
-- [ ] Postgres closed to the internet. Nightly backups, tested restore.
-- [ ] A staging environment for end-to-end tests.
+Moved to **`ISAAC.md`**, which is kept up to date with every change that affects the backend.

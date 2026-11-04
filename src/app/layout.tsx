@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Atkinson_Hyperlegible, Lora } from "next/font/google";
+import { SmoothScroll } from "@/components/SmoothScroll";
+import { ToastProvider } from "@/components/ui";
+import "lenis/dist/lenis.css";
 import "./globals.css";
 
 const lora = Lora({
@@ -25,7 +28,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${lora.variable} ${atkinson.variable}`}>
-      <body className="min-h-dvh">{children}</body>
+      <body className="min-h-dvh">
+        <SmoothScroll />
+        <ToastProvider>{children}</ToastProvider>
+      </body>
     </html>
   );
 }
