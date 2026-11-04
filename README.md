@@ -8,10 +8,11 @@ Start with [`MASTER.md`](./MASTER.md). It explains the project, the other docs (
 
 ```bash
 npm ci
+cp .env.example .env.local   # mock mode on by default
 npm run dev
 ```
 
-Open http://localhost:3000. The design token sheet is at http://localhost:3000/dev/tokens.
+Open http://localhost:3000. In mock mode the API at `/api/*` is served by an in-memory fake backend. Demo accounts: member `ngozi@example.com` / `password123`, admin `admin@example.com` / `admin12345`. The design token sheet is at http://localhost:3000/dev/tokens.
 
 ## Checks
 

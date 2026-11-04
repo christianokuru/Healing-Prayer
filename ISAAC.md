@@ -15,6 +15,7 @@ Newest first.
 
 | Date | Change | Where |
 |---|---|---|
+| 2026-11-04 | **Small contract details pinned down** while building the frontend's mock API: (1) `week_booked` only lists weeks that overlap the requested range; (2) preview `action` values are `create_rule`, `update_rule` (+ `id`), `delete_rule` (+ `id`), `add_blocked_date`; (3) field limits: full name 1–100 characters, email up to 254 (stored lowercased), password 8–128; (4) the frontend sends phone numbers already stripped of spaces, dashes, dots and brackets. | `prd.md` 3.3, 8.3, 8.6; this file 3.1, 3.2, 3.5 |
 | 2026-11-04 | **This file created.** Start with "Agree first", then work through the milestones. | Whole file |
 | 2026-11-04 | **Time zone is Canadian, not Nigerian.** Store it as a setting (`settings.timezone`, IANA name), placeholder `America/Toronto` until the church confirms. **Canada has daylight saving time:** generate slots in local time with `zoneinfo`, never with a fixed offset. 7:00 PM Thursday 12 Nov 2026 in Toronto is `2026-11-13T00:00:00Z`; 7:00 PM Thursday 11 Jun 2026 is `2026-06-11T23:00:00Z`. | `prd.md` 3.1 rule 1, section 9; this file "Slot rules" |
 
@@ -93,7 +94,7 @@ Full request and response examples: `prd.md` section 8.
 
 | Method | Path | Access | Body | Success | Errors |
 |---|---|---|---|---|---|
-| POST | `/api/auth/register` | Public | `full_name`, `email`, `phone`, `password` | `201 { user }` and sets the cookie | `INVALID_INPUT`, `EMAIL_TAKEN`, `RATE_LIMITED` |
+| POST | `/api/auth/register` | Public | `full_name` (1–100), `email` (≤254, lowercase it), `phone` (`^\+?\d{7,15}$`), `password` (8–128) | `201 { user }` and sets the cookie | `INVALID_INPUT`, `EMAIL_TAKEN`, `RATE_LIMITED` |
 | POST | `/api/auth/login` | Public | `email`, `password` | `200 { user }` and sets the cookie | `INVALID_CREDENTIALS`, `RATE_LIMITED` |
 | POST | `/api/auth/logout` | Any | none | `204`, clears the cookie | |
 | GET | `/api/auth/me` | Any | none | `200 { user }` | `UNAUTHENTICATED` |
@@ -115,7 +116,7 @@ Full request and response examples: `prd.md` section 8.
 - Returns every slot the schedule offers in the range, **plus** any slot that still holds an active booking (even if the schedule changed since).
 - `state`: `free`, `taken` or `mine` (`mine` only for the logged-in owner). **Never include names.**
 - `bookable`: `false` for past slots, slots beyond the window, and slots in a week where the logged-in member already has a booking.
-- `week_booked`: the Monday dates (church time zone) of weeks where the logged-in member has an active booking. Empty when logged out.
+- `week_booked`: the Monday dates (church time zone) of weeks where the logged-in member has an active booking, **only for weeks that overlap the requested range**. Empty when logged out.
 
 ### 3.3 Member bookings (login required)
 
@@ -152,7 +153,7 @@ Errors: `UNAUTHENTICATED`, `FORBIDDEN` (not admin), `NOT_FOUND`, `INVALID_STATE`
 | POST | `/api/admin/schedule/blocked-dates` | `date`, `reason` (optional) | `201 { blocked_date }` |
 | DELETE | `/api/admin/schedule/blocked-dates/{id}` | | `204` |
 | PATCH | `/api/admin/schedule/settings` | `booking_window_weeks` (1 to 26) | `200 { settings }` |
-| POST | `/api/admin/schedule/preview` | proposed change (same body as the call it previews, plus `action`) | `200 { affected_count, affected_ids }`: future active bookings that would fall outside the new schedule |
+| POST | `/api/admin/schedule/preview` | proposed change: `{ action, ... }` where `action` is `create_rule` (+ rule fields), `update_rule` (+ `id` and changed fields), `delete_rule` (+ `id`) or `add_blocked_date` (+ `date`, `reason`). Validates like the real call (`SCHEDULE_CONFLICT`, `INVALID_INPUT`) but saves nothing. | `200 { affected_count, affected_ids }`: future active bookings that would fall outside the new schedule |
 
 Rule checks: `start_time` before `end_time`; the range divides evenly by `slot_minutes`; `slot_minutes` is 15, 20, 30, 45 or 60; no overlap with another rule on the same weekday (`409 SCHEDULE_CONFLICT`).
 

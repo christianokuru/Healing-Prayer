@@ -58,7 +58,7 @@ Never quietly pick one. Fix the losing document in the same change, and mention 
 
 ## 6. Status
 
-**Current phase:** Phase 1, UI with mock data (see `prd.md` section 13). Step 1 (shared components) awaiting merge.
+**Current phase:** Phase 1, UI with mock data (see `prd.md` section 13). Step 2 (data layer) awaiting merge.
 
 **Done**
 - PRD v3 written (admin-set schedule).
@@ -68,10 +68,12 @@ Never quietly pick one. Fix the losing document in the same change, and mention 
 - Repo set up (`christianokuru/healing-prayer`, Next.js 16.4.5 starter). Docs added to the repo.
 - Phase 0: code in `src/`, strict TypeScript, lint layer rules, Prettier, Vitest, Playwright, CI. Design tokens and fonts in `globals.css`. Token sheet at `/dev/tokens`, checked at 360 to 2560 px in light and dark. Token contrast test.
 - Phase 1 step 1: shared components in `components/ui`, `cn()` helper, component gallery at `/dev/components`, unit and browser tests.
+- Lenis smooth scrolling. Canadian time zone setting. `ISAAC.md` created.
+- Phase 1 step 2: `lib/time.ts` (daylight saving safe), `lib/validation.ts`, `lib/errors.ts`, API client (`lib/api`), mock API served at `/api/*` in mock mode with seed data and demo accounts.
 
 **Next**
-1. Phase 1, step 2: API client, types and mock API (`lib/api`) matching `prd.md` section 8, plus `lib/time.ts`, so screens can be built on them.
-2. Then the screens in `prd.md` section 13, Phase 1 order.
+1. Phase 1, step 3: homepage (placeholder copy, session times from `GET /api/schedule`).
+2. Then auth screens, booking flow, member dashboard, admin bookings, admin schedule (`prd.md` section 13, Phase 1).
 
 **Open questions**
 - Church content still needed: about text, services, address, contact details, photos.
@@ -86,6 +88,7 @@ Newest first. One line each.
 
 | Date | Decision |
 |---|---|
+| 2026-11-04 | The mock API runs as a real `/api/*` inside the Next.js server (mock mode only), not in the browser, so server-side login checks work against it. |
 | 2026-11-04 | `ISAAC.md` holds everything the backend developer must build, with a dated "What's new" log. Updated whenever backend work changes. |
 | 2026-11-04 | Time zone is Canadian, not Nigerian: a backend setting, placeholder `America/Toronto` until the church confirms. Daylight saving aware. Isaac to be told. |
 | 2026-11-04 | Lenis smooth scrolling site-wide, mouse and trackpad only; native on touch; off for reduced motion. |

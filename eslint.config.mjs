@@ -10,6 +10,10 @@ const eslintConfig = defineConfig([
   {
     rules: {
       "no-console": ["warn", { allow: ["error"] }],
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { argsIgnorePattern: "^_", varsIgnorePattern: "^_", ignoreRestSiblings: true },
+      ],
       // Layer rules from ENGINEERING.md section 2: app → features → components/ui, lib.
       "import/no-restricted-paths": [
         "error",
@@ -62,6 +66,11 @@ const eslintConfig = defineConfig([
         { name: "fetch", message: "Only src/lib/api may call fetch. Use the api client." },
       ],
     },
+  },
+  {
+    // In tests a wrong assumption fails the test, so non-null assertions are fine.
+    files: ["**/*.test.{ts,tsx}", "tests/**/*.ts"],
+    rules: { "@typescript-eslint/no-non-null-assertion": "off" },
   },
   globalIgnores([
     ".next/**",
