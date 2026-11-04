@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, type ReactNode } from "react";
 import { Dialog } from "@/components/ui";
-import type { NavLink } from "../nav";
+import { MENU_ROW, type NavLink } from "../nav";
 
 type MobileMenuProps = {
   links: NavLink[];
@@ -30,12 +30,12 @@ export function MobileMenu({ links, account }: MobileMenuProps) {
         type="button"
         onClick={() => setOpen(true)}
         aria-haspopup="dialog"
-        className="inline-flex min-h-11 items-center gap-2 rounded-full border border-current px-4 font-bold md:hidden"
+        className="inline-flex min-h-9 items-center gap-1.5 rounded-full border border-current px-3.5 text-[0.9375rem] font-semibold active:scale-[0.97] md:hidden"
       >
         <svg
           aria-hidden="true"
           viewBox="0 0 24 24"
-          className="size-5"
+          className="size-4"
           fill="none"
           stroke="currentColor"
           strokeWidth="2.2"
@@ -47,14 +47,10 @@ export function MobileMenu({ links, account }: MobileMenuProps) {
       </button>
       <Dialog open={open} onClose={() => setOpen(false)} title="Menu">
         <nav aria-label="Main">
-          <ul className="flex flex-col">
+          <ul className="flex flex-col overflow-hidden rounded-[14px] border border-line/70 bg-bg">
             {links.map((link) => (
-              <li key={link.href} className="border-b border-line">
-                <Link
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  className="flex min-h-13 items-center font-display text-h3 font-semibold"
-                >
+              <li key={link.href} className="border-b border-line/70">
+                <Link href={link.href} onClick={() => setOpen(false)} className={MENU_ROW}>
                   {link.label}
                 </Link>
               </li>

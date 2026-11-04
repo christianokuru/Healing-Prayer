@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { getSession } from "@/lib/auth/getSession";
 import { cn } from "@/lib/cn";
-import { accountLink, type NavLink } from "../nav";
+import { accountLink, MENU_ROW, type NavLink } from "../nav";
 
 const STYLES = {
   bar: "ml-2 inline-flex min-h-11 items-center rounded-full bg-plum px-5 font-bold text-plum-ink hover:bg-plum-2 group-data-[tone=dusk]:bg-plum-ink group-data-[tone=dusk]:text-plum group-data-[tone=dusk]:hover:brightness-95",
-  menu: "flex min-h-13 items-center font-display text-h3 font-semibold",
+  menu: MENU_ROW,
 } as const;
 
 type Variant = keyof typeof STYLES;

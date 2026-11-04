@@ -98,7 +98,7 @@ export function Notice({ className, ...rest }: ComponentProps<"div">) {
   return (
     <div
       className={cn(
-        "flex flex-col gap-4 border-[3px] border-double border-plum bg-surface p-6",
+        "flex flex-col gap-3 border-[3px] border-double border-plum bg-surface p-5 md:gap-4 md:p-6",
         className,
       )}
       {...rest}
@@ -115,7 +115,7 @@ export function ArchCard({
   return (
     <div
       className={cn(
-        "flex flex-col items-center gap-3 rounded-arch border border-line bg-surface px-6 pt-14 pb-7 text-center",
+        "flex flex-col items-center gap-2.5 rounded-arch border border-line bg-surface px-5 pt-11 pb-6 text-center md:gap-3 md:px-6 md:pt-14 md:pb-7",
         framed && "frame",
         className,
       )}
@@ -144,7 +144,7 @@ export function OrderList({
   return (
     <div
       className={cn(
-        "relative rounded-sm border p-5 outline outline-1 outline-offset-[5px]",
+        "relative rounded-sm border p-4 outline outline-1 outline-offset-[5px] md:p-5",
         dark ? "border-gold-glow/45 outline-gold-glow/45" : "border-line bg-surface outline-line",
         className,
       )}
@@ -152,7 +152,10 @@ export function OrderList({
       <p className={cn("mb-3 text-center caps", dark ? "text-gold-glow" : "text-gold")}>{title}</p>
       <dl className="m-0 flex flex-col">
         {items.map((item) => (
-          <div key={item.label} className="flex items-baseline gap-2.5 py-1.5 text-[1.1875rem]">
+          <div
+            key={item.label}
+            className="flex items-baseline gap-2 py-1 text-body md:gap-2.5 md:py-1.5 md:text-[1.1875rem]"
+          >
             <dt>{item.label}</dt>
             <span
               aria-hidden="true"
@@ -168,7 +171,7 @@ export function OrderList({
       {footnote && (
         <p
           className={cn(
-            "mt-2.5 text-center font-verse text-[1.0625rem] italic",
+            "mt-2 text-center font-verse text-small italic md:mt-2.5 md:text-[1.0625rem]",
             dark ? "text-plum-soft" : "text-muted",
           )}
         >

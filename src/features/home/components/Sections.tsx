@@ -33,7 +33,7 @@ function SectionHead({
   return (
     <div
       className={cn(
-        "mb-8 flex max-w-[640px] flex-col gap-2.5",
+        "mb-6 flex max-w-[640px] flex-col gap-2 md:mb-8 md:gap-2.5",
         center && "mx-auto items-center text-center",
       )}
     >
@@ -58,7 +58,7 @@ function Section({
   children: ReactNode;
 }) {
   return (
-    <section id={id} aria-labelledby={`${id}-title`} className={cn("py-16", className)}>
+    <section id={id} aria-labelledby={`${id}-title`} className={cn("py-10 md:py-16", className)}>
       <div className="mx-auto max-w-content gutter">{children}</div>
     </section>
   );
@@ -67,13 +67,13 @@ function Section({
 export function Hero() {
   return (
     <section aria-labelledby="hero-title" className="dusk dusk-edge overflow-hidden">
-      <div className="mx-auto grid max-w-content items-end gap-9 pt-28 gutter pb-28 lg:grid-cols-[1.1fr_0.9fr] lg:pt-32">
-        <div className="flex flex-col gap-6">
+      <div className="mx-auto grid max-w-content items-end gap-8 pt-20 gutter pb-20 md:gap-9 md:pt-28 md:pb-28 lg:grid-cols-[1.1fr_0.9fr] lg:pt-32">
+        <div className="flex flex-col gap-4 md:gap-6">
           <NextSessionPill />
           <h1 id="hero-title" className="text-display">
             {HERO.titleStart} <em className="text-gold-glow">{HERO.titleEmphasis}</em>
           </h1>
-          <p className="max-w-[34ch] text-[1.1875rem] text-plum-soft">{HERO.text}</p>
+          <p className="max-w-[34ch] text-body text-plum-soft md:text-[1.1875rem]">{HERO.text}</p>
           <Verse
             tone="dark"
             variant="rule-left"
@@ -82,7 +82,7 @@ export function Hero() {
           >
             {HERO.verse.text}
           </Verse>
-          <div className="flex flex-col gap-3 sm:flex-row">
+          <div className="flex flex-col gap-2.5 sm:flex-row md:gap-3">
             <ButtonLink href="/book" variant="gold">
               Book a prayer session
             </ButtonLink>
@@ -91,7 +91,7 @@ export function Hero() {
             </ButtonLink>
           </div>
         </div>
-        <ChapelCandles className="max-w-[420px] justify-self-center" />
+        <ChapelCandles className="max-w-[260px] justify-self-center md:max-w-[420px]" />
       </div>
     </section>
   );
@@ -101,7 +101,7 @@ export function About() {
   return (
     <Section id="about">
       <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
-        <div className="flex max-w-prose flex-col gap-4">
+        <div className="flex max-w-prose flex-col gap-3 md:gap-4">
           <SectionHead
             id="about"
             eyebrow="About us"
@@ -124,11 +124,17 @@ export function HowItWorks() {
   return (
     <Section id="how-it-works" className="pt-6">
       <SectionHead id="how-it-works" eyebrow="Booking" title="How booking works" center />
-      <ol className="m-0 grid list-none gap-5 p-0 md:grid-cols-3">
+      <ol className="m-0 grid list-none gap-3 p-0 md:grid-cols-3 md:gap-5">
         {STEPS.map((step, i) => (
           <li key={step.title}>
-            <ArchCard framed={false} className="h-full gap-2 pt-11">
-              <span aria-hidden="true" className="font-caps text-[2.125rem] leading-none text-gold">
+            <ArchCard
+              framed={false}
+              className="h-full gap-1.5 px-5 pt-9 pb-6 md:gap-2 md:px-6 md:pt-11 md:pb-7"
+            >
+              <span
+                aria-hidden="true"
+                className="font-caps text-[1.625rem] leading-none text-gold md:text-[2.125rem]"
+              >
                 {ROMAN[i]}
               </span>
               <h3 className="text-h3 text-plum">{step.title}</h3>
@@ -143,11 +149,11 @@ export function HowItWorks() {
 
 export function VerseBand() {
   return (
-    <div className="flex flex-col items-center gap-4 bg-[linear-gradient(90deg,transparent,var(--plum-soft),transparent)] px-5 py-14 text-center">
+    <div className="flex flex-col items-center gap-4 bg-[linear-gradient(90deg,transparent,var(--plum-soft),transparent)] px-5 py-10 text-center md:py-14">
       <Divider />
       <Verse
         reference={VERSE_BAND.reference}
-        className="max-w-[26ch] [&_blockquote]:text-[clamp(1.625rem,1.2rem+1.6vw,2.25rem)] [&_blockquote]:leading-tight"
+        className="max-w-[26ch] [&_blockquote]:text-[clamp(1.375rem,0.9rem+2vw,2.25rem)] [&_blockquote]:leading-tight"
       >
         {VERSE_BAND.text}
       </Verse>
@@ -169,10 +175,13 @@ export function Ministries() {
         {MINISTRIES.map((m) => (
           <li
             key={m.title}
-            className="border-b border-line px-1 py-5 last:border-b-0 lg:[&:nth-last-child(2)]:border-b-0"
+            className="border-b border-line px-1 py-3.5 last:border-b-0 md:py-5 lg:[&:nth-last-child(2)]:border-b-0"
           >
             <h3 className="text-h3 text-plum">
-              <span aria-hidden="true" className="mr-1.5 text-[1.125rem] text-gold">
+              <span
+                aria-hidden="true"
+                className="mr-1.5 text-[0.9375rem] text-gold md:text-[1.125rem]"
+              >
                 ✠
               </span>
               {m.title}
@@ -195,7 +204,7 @@ function ContactRow({
   copyLabel: string;
 }) {
   return (
-    <div className="flex items-center justify-between gap-3 border-t border-line pt-3 text-left">
+    <div className="flex items-center justify-between gap-3 border-t border-line pt-2.5 text-left md:pt-3">
       <div className="flex min-w-0 flex-col">
         <span className="text-small text-muted">{label}</span>
         <span className="font-bold break-words select-all">{value}</span>

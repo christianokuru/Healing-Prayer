@@ -32,12 +32,12 @@ async function Copyright() {
 /** Night footer (UI.md section 4.1). */
 export function SiteFooter() {
   return (
-    <footer className="mt-12 bg-night text-plum-soft">
-      <div className="mx-auto grid max-w-content gap-8 py-12 gutter md:grid-cols-[1.4fr_1fr_1fr]">
+    <footer className="mt-8 bg-night text-plum-soft md:mt-12">
+      <div className="mx-auto grid max-w-content gap-6 py-9 gutter md:grid-cols-[1.4fr_1fr_1fr] md:gap-8 md:py-12">
         <div className="flex flex-col gap-3">
           <p className="flex items-center gap-2.5">
             <Cross className="text-gold-glow" />
-            <span className="font-display text-[1.5rem] font-semibold text-plum-ink">
+            <span className="font-display text-[1.25rem] font-semibold text-plum-ink md:text-[1.5rem]">
               {CHURCH.name}
             </span>
           </p>

@@ -45,9 +45,11 @@ export function Dialog({ open, onClose, title, children, actions }: DialogProps)
         "md:m-auto md:max-w-[480px]",
       )}
     >
-      <div className="flex flex-col gap-4 rounded-t-lg bg-surface px-4 pt-5 pb-[calc(20px+env(safe-area-inset-bottom,0px))] md:rounded-lg md:p-6">
+      <div className="flex flex-col gap-4 rounded-t-[22px] bg-surface px-4 pt-2.5 pb-[calc(20px+env(safe-area-inset-bottom,0px))] md:rounded-lg md:p-6">
+        {/* iOS-style grabber on the phone sheet. */}
+        <span aria-hidden="true" className="mx-auto h-1.5 w-10 rounded-full bg-line md:hidden" />
         <div className="flex items-start justify-between gap-4">
-          <h2 id={titleId} className="text-h2">
+          <h2 id={titleId} className="text-h3 md:text-h2">
             {title}
           </h2>
           <button

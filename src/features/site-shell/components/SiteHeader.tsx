@@ -13,7 +13,7 @@ const LOGGED_OUT = accountLink(null);
 export function SiteHeader() {
   return (
     <HeaderFrame>
-      <div className="mx-auto flex max-w-content items-center justify-between gap-4 py-4 gutter">
+      <div className="mx-auto flex max-w-content items-center justify-between gap-4 py-2.5 gutter md:py-4">
         <Wordmark />
         <nav aria-label="Main" className="hidden md:block">
           <ul className="flex items-center gap-1">

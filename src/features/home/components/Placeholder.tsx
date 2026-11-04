@@ -11,7 +11,7 @@ export function PlaceholderMark({ show }: { show: boolean }) {
 /** Arch photo frame with a warm candlelit stand-in until real photos arrive. */
 export function ArchPhoto({ label }: { label: string }) {
   return (
-    <div className="aspect-[4/5] w-full max-w-[380px] justify-self-center rounded-arch border border-line p-2.5 frame">
+    <div className="aspect-[4/5] w-full max-w-[300px] justify-self-center rounded-arch border border-line p-2.5 frame md:max-w-[380px]">
       <div
         role="img"
         aria-label={`${label} (photo to come)`}

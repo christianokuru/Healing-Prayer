@@ -58,7 +58,7 @@ Never quietly pick one. Fix the losing document in the same change, and mention 
 
 ## 6. Status
 
-**Current phase:** Phase 1, UI with mock data (see `prd.md` section 13). Candlelight × Manuscript restyle awaiting merge; then step 5 (booking).
+**Current phase:** Phase 1, UI with mock data (see `prd.md` section 13). Phone sizing (iPhone feel) awaiting merge; then step 5 (booking).
 
 **Done**
 - PRD v3 written (admin-set schedule).
@@ -74,6 +74,8 @@ Never quietly pick one. Fix the losing document in the same change, and mention 
 - Phase 1 step 4: register, login, forgot and reset password; `proxy.ts` and server guards for `/dashboard` and `/admin`; temporary welcome pages for both areas.
 - Dev server reachable from phones on the local network.
 - Visual style chosen and applied: Candlelight × Manuscript (UI.md). Tokens, fonts, ornaments, header/footer, homepage, auth screens and area placeholders restyled.
+- Site hosted on Vercel: https://healing-prayer.vercel.app/
+- Phones made compact with an iPhone feel (UI.md 3.5); tablet and desktop unchanged.
 
 **Next**
 1. Phase 1, step 5: the booking flow at `/book` (upcoming days list, calendar view, prayer point, confirm): behaviour from the booking sample, style from the Candlelight × Manuscript reference.
@@ -92,6 +94,7 @@ Newest first. One line each.
 
 | Date | Decision |
 |---|---|
+| 2026-11-04 | Phones (under 768 px): smaller text and buttons, tighter line height, system font, frosted header, iOS-style menu and sheets. Tablet and desktop unchanged. Fields stay 16 px so iOS does not zoom. |
 | 2026-11-04 | Visual style: **Candlelight × Manuscript** (dusk chapel, candles, arches; parchment, Cinzel caps, ✠, drop caps, order-of-service lists, KJV verses). Applies to every screen, dashboards included. Reference: https://claude.ai/artifact/AddXHW5nMkmh5k98MPPnyF |
 | 2026-11-04 | Light only for now; a night version may come later, so all colours stay tokens defined once on `:root`. |
 | 2026-11-04 | Fonts: Cormorant Garamond (display), Cinzel (labels), EB Garamond italic (verses), Atkinson Hyperlegible (all reading and forms). Replaces Lora. |
