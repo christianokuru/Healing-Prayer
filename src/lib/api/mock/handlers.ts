@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { ADMIN_PAGE_SIZE } from "../../config";
+import { ADMIN_PAGE_SIZE, SESSION_COOKIE } from "../../config";
 import {
   clockToMinutes,
   daysBetween,
@@ -36,7 +36,7 @@ import { newId, resetStore, type MockAppointment, type MockStore, type MockUser 
 // The mock API: same paths, bodies, responses and error codes as ISAAC.md section 3.
 // Pure request → response, so it can be tested without a server.
 
-export const SESSION_COOKIE = "hp_session";
+export { SESSION_COOKIE };
 const SLOT_MINUTES = [15, 20, 30, 45, 60] as const;
 const MAX_RANGE_DAYS = 62;
 const RESET_TOKEN_MS = 60 * 60 * 1000;

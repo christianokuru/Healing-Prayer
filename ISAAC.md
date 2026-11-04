@@ -15,6 +15,7 @@ Newest first.
 
 | Date | Change | Where |
 |---|---|---|
+| 2026-11-04 | **Session cookie name: `hp_session`** (httpOnly, `Secure`, `SameSite=Lax`, `Path=/`). The frontend's `proxy.ts` checks only that this cookie exists before showing `/dashboard` and `/admin`. If you need another name, tell us; it is one setting (`SESSION_COOKIE_NAME`). Logout must clear it. | Section 1 |
 | 2026-11-04 | **Keep the time zone database up to date.** Provinces change their clock rules (our CI found British Columbia's November 2026 rule differs between tz database versions). Install the Python `tzdata` package and keep it, and the server's OS tzdata, current. Never hard-code offsets. | Section 5 |
 | 2026-11-04 | **Small contract details pinned down** while building the frontend's mock API: (1) `week_booked` only lists weeks that overlap the requested range; (2) preview `action` values are `create_rule`, `update_rule` (+ `id`), `delete_rule` (+ `id`), `add_blocked_date`; (3) field limits: full name 1–100 characters, email up to 254 (stored lowercased), password 8–128; (4) the frontend sends phone numbers already stripped of spaces, dashes, dots and brackets. | `prd.md` 3.3, 8.3, 8.6; this file 3.1, 3.2, 3.5 |
 | 2026-11-04 | **This file created.** Start with "Agree first", then work through the milestones. | Whole file |
@@ -29,7 +30,7 @@ These are already decided on the frontend side. Please confirm or raise concerns
 | Topic | Decision |
 |---|---|
 | Hosting | One domain. Nginx sends `/api/*` to FastAPI, everything else to Next.js. No CORS needed. |
-| Auth | httpOnly session cookie, `Secure`, `SameSite=Lax`. The frontend never sees a token. Server sessions or a signed JWT in the cookie: your choice. |
+| Auth | httpOnly session cookie named **`hp_session`**, `Secure`, `SameSite=Lax`, `Path=/`. The frontend never sees a token. Server sessions or a signed JWT in the cookie: your choice. |
 | JSON | `snake_case` fields. |
 | Times | ISO 8601 **UTC** strings in and out (`2026-11-13T00:00:00Z`). Plain dates `YYYY-MM-DD` and clock times `HH:MM` are in the church's time zone. |
 | Time zone | `settings.timezone`, placeholder `America/Toronto`, daylight saving aware. |

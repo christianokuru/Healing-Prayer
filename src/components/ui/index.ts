@@ -7,6 +7,7 @@ export { Dialog } from "./Dialog";
 export { EmptyState } from "./EmptyState";
 export { Field, type FieldControlProps } from "./Field";
 export { Input, Textarea } from "./Input";
+export { PasswordInput } from "./PasswordInput";
 export { SegmentedToggle } from "./SegmentedToggle";
 export { Skeleton } from "./Skeleton";
 export { Spinner } from "./Spinner";

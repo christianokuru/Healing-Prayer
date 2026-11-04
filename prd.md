@@ -490,6 +490,7 @@ NEXT_PUBLIC_API_BASE=/api
 API_PROXY_TARGET=http://localhost:8000   # dev rewrites target
 NEXT_PUBLIC_USE_MOCK=false
 API_INTERNAL_URL=http://127.0.0.1:8000   # server-side calls go straight to FastAPI (unset in mock mode)
+SESSION_COOKIE_NAME=hp_session           # must match the backend's session cookie
 ```
 
 ---
