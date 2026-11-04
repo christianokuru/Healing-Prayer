@@ -229,7 +229,7 @@ For each screen: the phone layout first, then what changes on bigger screens.
 
 ### 6.1 Homepage (`/`)
 Sections in order (see the style reference):
-1. **Hero** on the dusk sky, header over it: "Next session" pill (date, time, how many times are free), display heading with one italic phrase, one-line lead, a verse (James 5:16) with a gold rule on its left, **Book a prayer session** (gold) and **How it works** (outline). The chapel arch with three candles beside it. A curved parchment edge at the bottom.
+1. **Hero** on the dusk sky, header over it: a small "Next session" pill (date, time, how many times are free; 11 px text on phones, 13 px from `md`, one line), display heading with one italic phrase, one-line lead, a verse (James 5:16) with a gold rule on its left, **Book a prayer session** (gold) and **How it works** (outline). The chapel arch with three candles beside it. A curved parchment edge at the bottom.
 2. **About us:** heading, first paragraph with a drop cap, second paragraph, a verse between rules (Matthew 11:28), and an arch photo frame.
 3. ✠ divider.
 4. **When we gather to pray:** a plum band with a soft candle glow. Left: label, heading, one line, **See free times** (gold). Right: the framed **Order of the week** list (day ........ time, each session ........ length, book up to ........ weeks), from the live schedule, with the time zone named.
