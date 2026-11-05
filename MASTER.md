@@ -58,7 +58,7 @@ Never quietly pick one. Fix the losing document in the same change, and mention 
 
 ## 6. Status
 
-**Current phase:** Phase 1, UI with mock data (see `prd.md` section 13). Step 6 (member dashboard and account sidebar) awaiting merge; then admin bookings.
+**Current phase:** Phase 1, UI with mock data (see `prd.md` section 13). Member booking inside the account area awaiting merge; then admin bookings.
 
 **Done**
 - PRD v3 written (admin-set schedule).
@@ -79,6 +79,7 @@ Never quietly pick one. Fix the losing document in the same change, and mention 
 - SEO: metadata on every page, share image, icons and manifest, robots.txt, sitemap.xml, structured data (Church, WebSite, session Events once the address is real).
 - Phase 1 step 5: booking flow at `/book` (upcoming days, calendar, prayer point, confirm, success), live slots every 5 seconds, login at Continue with return to the chosen time, SLOT_TAKEN and weekly limit handling. In the sitemap.
 - Phase 1 step 6: account shell with a clean sidebar (desktop) and iOS menu sheet (phones) for `/dashboard` and `/admin`; member dashboard: next session, cancel with confirmation, also booked, past and cancelled, book another, empty state.
+- `/dashboard/book`: the booking flow inside the account sidebar for members; `/book` sends logged-in members there.
 
 **Next**
 1. Phase 1, step 7: admin bookings (`/admin`): this week's sessions, filters, table on desktop, booking detail page, mark completed or cancelled.
@@ -100,6 +101,7 @@ Newest first. One line each.
 
 | Date | Decision |
 |---|---|
+| 2026-11-05 | Members book at `/dashboard/book` (same flow, inside the sidebar). `/book` stays public for visitors and SEO, and redirects logged-in members. |
 | 2026-11-05 | Member and admin areas use one account shell: a clean sidebar on desktop, a frosted top bar with an iOS menu sheet on phones. No public header or footer there. |
 | 2026-11-05 | Public `GET /api/schedule` returns upcoming `blocked_dates` so the booking page can show "No session" days with the reason. Added to `ISAAC.md`. |
 | 2026-11-05 | A visitor's chosen time travels through login in the URL (`/book?slot=…`); the prayer point never does. |

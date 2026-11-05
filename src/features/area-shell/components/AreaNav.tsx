@@ -53,7 +53,7 @@ export function SidebarLinks({ links }: { links: AreaLink[] }) {
     <nav aria-label="Account">
       <ul className="m-0 flex list-none flex-col gap-1 p-0">
         {links.map((link) => {
-          const active = isActive(pathname, link.href);
+          const active = isActive(pathname, link.href, link.exact);
           return (
             <li key={link.href}>
               <Link
@@ -111,7 +111,7 @@ export function AreaMenu({ links, footer }: { links: AreaLink[]; footer: ReactNo
         <nav aria-label="Account">
           <ul className="m-0 flex list-none flex-col overflow-hidden rounded-[14px] border border-line/70 bg-bg p-0">
             {links.map((link) => {
-              const active = isActive(pathname, link.href);
+              const active = isActive(pathname, link.href, link.exact);
               return (
                 <li key={link.href} className="border-b border-line/70 last:border-b-0">
                   <Link

@@ -23,7 +23,7 @@ export default function BookPage({ searchParams }: PageProps<"/book">) {
         }}
       />
       <Suspense fallback={<BookingSkeleton />}>
-        <BookingLoader searchParams={searchParams} />
+        <BookingLoader area="public" searchParams={searchParams} />
       </Suspense>
     </>
   );

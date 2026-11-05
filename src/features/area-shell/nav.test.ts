@@ -7,6 +7,12 @@ describe("isActive", () => {
     expect(isActive("/administer", "/admin")).toBe(false);
   });
 
+  it("exact links ignore pages under them", () => {
+    expect(isActive("/dashboard/book", "/dashboard", true)).toBe(false);
+    expect(isActive("/dashboard", "/dashboard", true)).toBe(true);
+    expect(isActive("/dashboard/book", "/dashboard/book")).toBe(true);
+  });
+
   it("only matches the homepage exactly", () => {
     expect(isActive("/", "/")).toBe(true);
     expect(isActive("/dashboard", "/")).toBe(false);

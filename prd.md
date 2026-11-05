@@ -158,6 +158,7 @@ The backend enforces every rule. The frontend repeats some checks for a smoother
 | `/forgot-password`, `/reset-password` | Public | Reset password |
 | `/dashboard` | Member | My bookings, cancel, "Book prayer" button |
 | `/book` | Public to browse, login to book | Upcoming days (or calendar), pick a time, write prayer point |
+| `/dashboard/book` | Member | The same booking flow inside the account sidebar. Logged-in members who open `/book` are sent here, keeping `?slot=` |
 | `/admin` | Admin | All bookings, with filters |
 | `/admin/appointments/[id]` | Admin | One booking in full |
 | `/admin/schedule` | Admin | Session rules, blocked dates, booking window |
