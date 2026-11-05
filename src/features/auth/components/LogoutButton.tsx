@@ -25,7 +25,7 @@ export function LogoutButton() {
   }
 
   return (
-    <Button variant="secondary" onClick={logout} loading={pending} loadingText="Logging out…">
+    <Button variant="secondary" block onClick={logout} loading={pending} loadingText="Logging out…">
       Log out
     </Button>
   );

@@ -52,7 +52,7 @@ test.describe("guards", () => {
 });
 
 test.describe("register, log out and log in", () => {
-  test("creates an account, logs out, and logs back in", async ({ page }) => {
+  test("creates an account, logs out, and logs back in", async ({ page, isMobile }) => {
     const email = uniqueEmail();
     await page.goto("/register");
     await expect(page.getByText(/Only church admins can read your prayer points/)).toBeVisible();
@@ -64,7 +64,9 @@ test.describe("register, log out and log in", () => {
     await expect(page).toHaveURL(/\/dashboard$/);
     await expect(page.getByRole("heading", { name: "Peace be with you, Amara" })).toBeVisible();
 
-    await page.getByRole("button", { name: "Log out" }).click();
+    // Log out sits in the sidebar on desktop and in the account menu on phones.
+    if (isMobile) await page.getByRole("button", { name: "Menu" }).click();
+    await page.getByRole("button", { name: "Log out" }).filter({ visible: true }).click();
     await expect(page).toHaveURL(/\/$/);
     await page.goto("/dashboard");
     await expect(page).toHaveURL(/\/login/);

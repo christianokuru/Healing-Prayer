@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, type ReactNode } from "react";
-import { Dialog } from "@/components/ui";
-import { MENU_ROW, type NavLink } from "../nav";
+import { Dialog, MENU_ROW } from "@/components/ui";
+import type { NavLink } from "../nav";
 
 type MobileMenuProps = {
   links: NavLink[];

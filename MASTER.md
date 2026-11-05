@@ -58,7 +58,7 @@ Never quietly pick one. Fix the losing document in the same change, and mention 
 
 ## 6. Status
 
-**Current phase:** Phase 1, UI with mock data (see `prd.md` section 13). Step 5 (booking) awaiting merge; then the member dashboard.
+**Current phase:** Phase 1, UI with mock data (see `prd.md` section 13). Step 6 (member dashboard and account sidebar) awaiting merge; then admin bookings.
 
 **Done**
 - PRD v3 written (admin-set schedule).
@@ -78,10 +78,11 @@ Never quietly pick one. Fix the losing document in the same change, and mention 
 - Phones made compact with an iPhone feel (UI.md 3.5); tablet and desktop unchanged.
 - SEO: metadata on every page, share image, icons and manifest, robots.txt, sitemap.xml, structured data (Church, WebSite, session Events once the address is real).
 - Phase 1 step 5: booking flow at `/book` (upcoming days, calendar, prayer point, confirm, success), live slots every 5 seconds, login at Continue with return to the chosen time, SLOT_TAKEN and weekly limit handling. In the sitemap.
+- Phase 1 step 6: account shell with a clean sidebar (desktop) and iOS menu sheet (phones) for `/dashboard` and `/admin`; member dashboard: next session, cancel with confirmation, also booked, past and cancelled, book another, empty state.
 
 **Next**
-1. Phase 1, step 6: member dashboard (`/dashboard`): next session, cancel with a confirm dialog, past sessions, book another.
-2. Then admin bookings, admin schedule (`prd.md` section 13, Phase 1).
+1. Phase 1, step 7: admin bookings (`/admin`): this week's sessions, filters, table on desktop, booking detail page, mark completed or cancelled.
+2. Then admin schedule (`/admin/schedule`), and add it to `ADMIN_LINKS`.
 
 **Open questions**
 - Church content still needed: about text, services, address, contact details, photos. Placeholders live in `src/features/home/content.ts` and `src/lib/church.ts`; set the `*_PLACEHOLDER(S)` flags to false when replaced.
@@ -99,6 +100,7 @@ Newest first. One line each.
 
 | Date | Decision |
 |---|---|
+| 2026-11-05 | Member and admin areas use one account shell: a clean sidebar on desktop, a frosted top bar with an iOS menu sheet on phones. No public header or footer there. |
 | 2026-11-05 | Public `GET /api/schedule` returns upcoming `blocked_dates` so the booking page can show "No session" days with the reason. Added to `ISAAC.md`. |
 | 2026-11-05 | A visitor's chosen time travels through login in the URL (`/book?slot=…`); the prayer point never does. |
 | 2026-11-04 | SEO before booking: full metadata, share image, icons, manifest, robots, sitemap, structured data. Placeholder contact details are never put in structured data. |

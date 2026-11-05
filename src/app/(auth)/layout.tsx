@@ -1,4 +1,4 @@
-import { Wordmark } from "@/features/site-shell";
+import { Wordmark } from "@/components/ui";
 
 export default function AuthLayout({ children }: LayoutProps<"/">) {
   return (
