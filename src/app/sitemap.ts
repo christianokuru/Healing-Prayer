@@ -1,7 +1,10 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/config";
 
-/** Indexable pages only. Add /book when the booking page exists (MASTER.md next steps). */
+/** Indexable pages only. Add each new public page here (ENGINEERING.md, "SEO"). */
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [{ url: `${SITE_URL}/`, changeFrequency: "weekly", priority: 1 }];
+  return [
+    { url: `${SITE_URL}/`, changeFrequency: "weekly", priority: 1 },
+    { url: `${SITE_URL}/book`, changeFrequency: "daily", priority: 0.9 },
+  ];
 }

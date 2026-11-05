@@ -15,6 +15,7 @@ Newest first.
 
 | Date | Change | Where |
 |---|---|---|
+| 2026-11-05 | **`GET /api/schedule` now also returns `blocked_dates`**: `[{ "date": "YYYY-MM-DD", "reason": string or null }]`, only upcoming dates up to the end of the booking window, soonest first. The booking page shows them as "No session (Christmas Eve)" days. | `prd.md` 8.2; this file 3.2 |
 | 2026-11-04 | **Session cookie name: `hp_session`** (httpOnly, `Secure`, `SameSite=Lax`, `Path=/`). The frontend's `proxy.ts` checks only that this cookie exists before showing `/dashboard` and `/admin`. If you need another name, tell us; it is one setting (`SESSION_COOKIE_NAME`). Logout must clear it. | Section 1 |
 | 2026-11-04 | **Keep the time zone database up to date.** Provinces change their clock rules (our CI found British Columbia's November 2026 rule differs between tz database versions). Install the Python `tzdata` package and keep it, and the server's OS tzdata, current. Never hard-code offsets. | Section 5 |
 | 2026-11-04 | **Small contract details pinned down** while building the frontend's mock API: (1) `week_booked` only lists weeks that overlap the requested range; (2) preview `action` values are `create_rule`, `update_rule` (+ `id`), `delete_rule` (+ `id`), `add_blocked_date`; (3) field limits: full name 1–100 characters, email up to 254 (stored lowercased), password 8–128; (4) the frontend sends phone numbers already stripped of spaces, dashes, dots and brackets. | `prd.md` 3.3, 8.3, 8.6; this file 3.1, 3.2, 3.5 |
@@ -109,7 +110,7 @@ Full request and response examples: `prd.md` section 8.
 
 | Method | Path | Success |
 |---|---|---|
-| GET | `/api/schedule` | `{ timezone, booking_window_weeks, rules: [{ weekday, start_time, end_time, slot_minutes }] }`. Active rules only. `weekday` 1 = Monday … 7 = Sunday. |
+| GET | `/api/schedule` | `{ timezone, booking_window_weeks, rules: [{ weekday, start_time, end_time, slot_minutes }], blocked_dates: [{ date, reason }] }`. Active rules only. `weekday` 1 = Monday … 7 = Sunday. `blocked_dates`: upcoming only, up to the end of the booking window, soonest first. |
 | GET | `/api/slots?from=YYYY-MM-DD&to=YYYY-MM-DD` | `{ slots: [{ start, end, state, bookable }], week_booked: [YYYY-MM-DD] }`. See below. Header `Cache-Control: no-store`. |
 | GET | `/api/health` | `{ "ok": true }` after a quick database check. |
 

@@ -271,6 +271,12 @@ Flow and states match the booking sample; style matches the style reference. Hea
   - Day cards in one column, with the 4 times in one row.
   - Steps 2 and 3 keep the same two columns, with the form on the left and the summary panel on the right.
 - **`xl`/`2xl`:** same as `lg`, centred at 1200 px. This is a focused task, so no extra columns.
+- **Built details:**
+  - Blocked dates (from `GET /api/schedule`) show as dashed "No session" cards with the reason, in the list only; in the calendar they are greyed out.
+  - Calendar view on desktop: the calendar is 400 px wide with the picked day's card beside it, times 2 × 2.
+  - If live polling shows the chosen time was taken while choosing or writing, the member is sent back to the times with the banner, the lost time flashes, and the prayer point is kept.
+  - A visitor's chosen time travels through login in the address (`/book?slot=…`, never the prayer point). If it is still free on return, the flow opens at the prayer point.
+  - Success screen: an arch card with a candle, the date and time, Matthew 18:20, "View my bookings" and "Back to times".
 - **Behaviour (all sizes):** the prayer point survives going back, changing time and `SLOT_TAKEN`. On `SLOT_TAKEN`, return to step 1, flash the lost slot, and show the banner "Sorry, that time was just taken by someone else. Your prayer point is saved. Please pick another time."
 
 ### 6.4 Member dashboard (`/dashboard`)

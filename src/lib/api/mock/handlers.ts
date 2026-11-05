@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { ADMIN_PAGE_SIZE, SESSION_COOKIE } from "../../config";
 import {
+  addDays,
   clockToMinutes,
   daysBetween,
   isClockTime,
@@ -250,7 +251,9 @@ async function resetPassword(ctx: Ctx) {
 // ---- Schedule and slots ----
 
 function publicSchedule(ctx: Ctx) {
-  const { settings, rules } = ctx.store;
+  const { settings, rules, blockedDates } = ctx.store;
+  const today = toDateKey(ctx.now, settings.timezone);
+  const lastDay = addDays(today, settings.booking_window_weeks * 7);
   return json({
     timezone: settings.timezone,
     booking_window_weeks: settings.booking_window_weeks,
@@ -262,6 +265,10 @@ function publicSchedule(ctx: Ctx) {
         end_time,
         slot_minutes,
       })),
+    blocked_dates: blockedDates
+      .filter((b) => b.date >= today && b.date <= lastDay)
+      .sort((a, b) => a.date.localeCompare(b.date))
+      .map(({ date, reason }) => ({ date, reason })),
   });
 }
 

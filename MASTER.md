@@ -58,7 +58,7 @@ Never quietly pick one. Fix the losing document in the same change, and mention 
 
 ## 6. Status
 
-**Current phase:** Phase 1, UI with mock data (see `prd.md` section 13). SEO awaiting merge; then step 5 (booking).
+**Current phase:** Phase 1, UI with mock data (see `prd.md` section 13). Step 5 (booking) awaiting merge; then the member dashboard.
 
 **Done**
 - PRD v3 written (admin-set schedule).
@@ -77,11 +77,11 @@ Never quietly pick one. Fix the losing document in the same change, and mention 
 - Site hosted on Vercel: https://healing-prayer.vercel.app/
 - Phones made compact with an iPhone feel (UI.md 3.5); tablet and desktop unchanged.
 - SEO: metadata on every page, share image, icons and manifest, robots.txt, sitemap.xml, structured data (Church, WebSite, session Events once the address is real).
+- Phase 1 step 5: booking flow at `/book` (upcoming days, calendar, prayer point, confirm, success), live slots every 5 seconds, login at Continue with return to the chosen time, SLOT_TAKEN and weekly limit handling. In the sitemap.
 
 **Next**
-1. Phase 1, step 5: the booking flow at `/book` (upcoming days list, calendar view, prayer point, confirm): behaviour from the booking sample, style from the Candlelight × Manuscript reference.
-2. Then member dashboard, admin bookings, admin schedule (`prd.md` section 13, Phase 1).
-3. With `/book`: add it to `sitemap.ts`, give it page metadata (indexable), and point the hero CTA's structured data at it (already set).
+1. Phase 1, step 6: member dashboard (`/dashboard`): next session, cancel with a confirm dialog, past sessions, book another.
+2. Then admin bookings, admin schedule (`prd.md` section 13, Phase 1).
 
 **Open questions**
 - Church content still needed: about text, services, address, contact details, photos. Placeholders live in `src/features/home/content.ts` and `src/lib/church.ts`; set the `*_PLACEHOLDER(S)` flags to false when replaced.
@@ -99,6 +99,8 @@ Newest first. One line each.
 
 | Date | Decision |
 |---|---|
+| 2026-11-05 | Public `GET /api/schedule` returns upcoming `blocked_dates` so the booking page can show "No session" days with the reason. Added to `ISAAC.md`. |
+| 2026-11-05 | A visitor's chosen time travels through login in the URL (`/book?slot=…`); the prayer point never does. |
 | 2026-11-04 | SEO before booking: full metadata, share image, icons, manifest, robots, sitemap, structured data. Placeholder contact details are never put in structured data. |
 | 2026-11-04 | Phones (under 768 px): smaller text and buttons, tighter line height, system font, frosted header, iOS-style menu and sheets. Tablet and desktop unchanged. Fields stay 16 px so iOS does not zoom. |
 | 2026-11-04 | Visual style: **Candlelight × Manuscript** (dusk chapel, candles, arches; parchment, Cinzel caps, ✠, drop caps, order-of-service lists, KJV verses). Applies to every screen, dashboards included. Reference: https://claude.ai/artifact/AddXHW5nMkmh5k98MPPnyF |

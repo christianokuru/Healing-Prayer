@@ -52,10 +52,14 @@ export type PublicRule = {
   slot_minutes: SlotMinutes;
 };
 
+export type PublicBlockedDate = { date: string; reason: string | null };
+
 export type PublicSchedule = {
   timezone: string;
   booking_window_weeks: number;
   rules: PublicRule[];
+  /** Upcoming blocked dates inside the booking window, soonest first. */
+  blocked_dates: PublicBlockedDate[];
 };
 
 export type ScheduleRule = PublicRule & { id: string; active: boolean };
@@ -64,7 +68,7 @@ export type BlockedDate = { id: string; date: string; reason: string | null };
 
 export type Settings = { booking_window_weeks: number; timezone: string };
 
-export type AdminSchedule = PublicSchedule & {
+export type AdminSchedule = Omit<PublicSchedule, "rules" | "blocked_dates"> & {
   rules: ScheduleRule[];
   blocked_dates: BlockedDate[];
 };
