@@ -45,7 +45,7 @@ test.describe("member dashboard", () => {
     await expect(page.getByText("You have no bookings yet")).toBeVisible();
     await expect(page.getByRole("link", { name: "Book prayer" }).last()).toHaveAttribute(
       "href",
-      "/book",
+      "/dashboard/book",
     );
   });
 
@@ -103,5 +103,26 @@ test.describe("member dashboard", () => {
     await page.waitForLoadState("networkidle");
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
     expect(overflow).toBeLessThanOrEqual(0);
+  });
+
+  test("members book inside their account area, with Book prayer marked as current", async ({
+    page,
+    isMobile,
+  }) => {
+    await registerMember(page.request);
+    await page.goto("/book?slot=2099-01-01T00%3A00%3A00.000Z");
+    await expect(page).toHaveURL(/\/dashboard\/book\?slot=2099-01-01T00%3A00%3A00\.000Z$/);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Book a prayer session");
+    await expect(page.getByRole("heading", { name: "Choose a time" })).toBeVisible();
+
+    await openAccountMenu(page, isMobile);
+    const nav = page.getByRole("navigation", { name: "Account" }).filter({ visible: true });
+    await expect(nav.getByRole("link", { name: "Book prayer" })).toHaveAttribute(
+      "aria-current",
+      "page",
+    );
+    await expect(nav.getByRole("link", { name: "My bookings" })).not.toHaveAttribute(
+      "aria-current",
+    );
   });
 });

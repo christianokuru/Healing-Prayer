@@ -179,7 +179,7 @@ Both areas use the same shell (`features/area-shell`), without the public header
   - Middle: an engraved label ("My account" or "Admin"), then the links, each with a thin line icon. The current page has a `plum-soft` background, `plum` text and a short gold bar on its left edge.
   - Bottom, above a rule: the person's initials in a plum circle, their name and email, then **Log out**.
 - **Phones and tablets:** a frosted top bar with the wordmark and a **Menu** button. The menu is a bottom sheet: the links as an iOS inset grouped list with icons and chevrons, then the person's name, email and Log out in a second group.
-- Member links: My bookings, Book prayer, Back to website. Admin links: Bookings, Back to website (Schedule is added when built).
+- Member links: My bookings (`/dashboard`, current only on that exact page), Book prayer (`/dashboard/book`), Back to website. Admin links: Bookings, Back to website (Schedule is added when built).
 - Content sits to the right of the sidebar, max 1200 px (admin tables up to 1440 px), with the usual gutter and 40 px side padding on desktop.
 - Greeting heading on the member dashboard: "Peace be with you, {first name}".
 
@@ -257,8 +257,10 @@ Sections in order (see the style reference):
 - Errors show next to the field when they belong to a field, and in a banner otherwise.
 - After login from the booking page, the user returns to the same chosen time.
 
-### 6.3 Booking (`/book`)
+### 6.3 Booking (`/book` and `/dashboard/book`)
 Flow and states match the booking sample; style matches the style reference. Header over a **dusk banner** ("Book prayer" label, "Choose a time to be prayed with", James 5:16), then the steps on parchment.
+
+**Two homes, one flow.** `/book` is public, for visitors and search engines. Logged-in members are sent to `/dashboard/book` (keeping `?slot=`), which shows the same flow inside the account sidebar, under a plain page title ("Book a prayer session" with James 5:16) instead of the dusk banner. The sidebar's "Book prayer" link goes there.
 
 - **Phone:**
   - Title, one-line intro, progress steps, banner area, "Upcoming days / Calendar" toggle.

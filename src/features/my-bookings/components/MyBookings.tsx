@@ -43,7 +43,7 @@ function NoBookings() {
       <Verse reference="Matthew 7:7" className="max-w-[34ch] [&_blockquote]:text-muted">
         Ask, and it shall be given you; seek, and ye shall find.
       </Verse>
-      <ButtonLink href="/book">Book prayer</ButtonLink>
+      <ButtonLink href="/dashboard/book">Book prayer</ButtonLink>
     </ArchCard>
   );
 }
@@ -134,7 +134,7 @@ export async function MyBookings() {
                 ahead.
               </p>
               <div>
-                <ButtonLink href="/book">See free times</ButtonLink>
+                <ButtonLink href="/dashboard/book">See free times</ButtonLink>
               </div>
             </Notice>
           )}
