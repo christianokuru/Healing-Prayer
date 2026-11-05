@@ -335,3 +335,8 @@ it("returns NOT_FOUND for unknown endpoints", async () => {
   const res = await call("GET", "nope");
   expect([res.status, res.body.error.code]).toEqual([404, "NOT_FOUND"]);
 });
+
+it("public schedule lists upcoming blocked dates inside the window", async () => {
+  const res = await call("GET", "schedule");
+  expect(res.body.blocked_dates).toEqual([{ date: "2026-12-24", reason: "Christmas Eve" }]);
+});

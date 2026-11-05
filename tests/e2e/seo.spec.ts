@@ -58,6 +58,7 @@ test.describe("SEO", () => {
 
     const sitemap = await (await request.get("/sitemap.xml")).text();
     expect(sitemap).toContain("<urlset");
+    expect(sitemap).toContain("/book</loc>");
 
     const manifest = await (await request.get("/manifest.webmanifest")).json();
     expect(manifest).toMatchObject({ name: "Healing Prayer North-West", display: "standalone" });

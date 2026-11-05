@@ -6,6 +6,7 @@ export { ChapelCandles, SingleCandle } from "./Candles";
 export { Card } from "./Card";
 export { CopyButton } from "./CopyButton";
 export { Dialog } from "./Dialog";
+export { DuskBanner } from "./DuskBanner";
 export { EmptyState } from "./EmptyState";
 export { Field, type FieldControlProps } from "./Field";
 export { Input, Textarea } from "./Input";

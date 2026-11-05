@@ -112,6 +112,17 @@
   --container-form: 440px;
 
   --animate-flicker: flicker 2.6s ease-in-out infinite;
+  /* A slot that was just taken by someone else (UI.md 3.3). */
+  --animate-flash: flash 1.2s ease-out;
+
+  @keyframes flash {
+    0% {
+      box-shadow: 0 0 0 4px var(--danger);
+    }
+    100% {
+      box-shadow: 0 0 0 0 transparent;
+    }
+  }
 
   @keyframes flicker {
     0%,

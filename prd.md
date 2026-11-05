@@ -269,11 +269,14 @@ Reset tokens last 1 hour and work once.
 {
   "timezone": "America/Toronto",
   "booking_window_weeks": 8,
-  "rules": [ { "weekday": 4, "start_time": "19:00", "end_time": "21:00", "slot_minutes": 30 } ]
+  "rules": [ { "weekday": 4, "start_time": "19:00", "end_time": "21:00", "slot_minutes": 30 } ],
+  "blocked_dates": [ { "date": "2026-12-24", "reason": "Christmas Eve" } ]
 }
 ```
 
 `weekday`: 1 = Monday to 7 = Sunday. Only active rules are listed.
+
+`blocked_dates`: upcoming blocked dates from today to the end of the booking window, soonest first, with the reason (or `null`). The booking page shows them as "No session" days.
 
 ### 8.3 Slots (public, polled)
 
