@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Cross } from "@/components/ui";
+import { Cross } from "./Ornaments";
 
 /**
  * Text wordmark with a thin cross (UI.md section 4.4). Plum on parchment; inside a dusk

@@ -172,13 +172,19 @@ Below `md` (768 px) only. Tablets and desktops are unchanged.
 - **Phone:** wordmark and a Menu button that opens a bottom sheet. **`md`+:** inline links (Home, Book prayer, and Log in, My bookings or Admin).
 - **Footer:** `night` background. Wordmark, a one-line description, session times and contact details, with `gold-glow` labels.
 
-### 4.2 Member area (`/dashboard`)
-- Header on parchment, footer as above. Greeting heading: "Peace be with you, {first name}".
+### 4.2 Account shell: member (`/dashboard`) and admin (`/admin/*`)
+Both areas use the same shell (`features/area-shell`), without the public header and footer.
+- **`lg`+: a clean sidebar**, 256 px, fixed to the full height, `surface` tint with a thin `line` border on the right.
+  - Top: the wordmark.
+  - Middle: an engraved label ("My account" or "Admin"), then the links, each with a thin line icon. The current page has a `plum-soft` background, `plum` text and a short gold bar on its left edge.
+  - Bottom, above a rule: the person's initials in a plum circle, their name and email, then **Log out**.
+- **Phones and tablets:** a frosted top bar with the wordmark and a **Menu** button. The menu is a bottom sheet: the links as an iOS inset grouped list with icons and chevrons, then the person's name, email and Log out in a second group.
+- Member links: My bookings, Book prayer, Back to website. Admin links: Bookings, Back to website (Schedule is added when built).
+- Content sits to the right of the sidebar, max 1200 px (admin tables up to 1440 px), with the usual gutter and 40 px side padding on desktop.
+- Greeting heading on the member dashboard: "Peace be with you, {first name}".
 
 ### 4.3 Admin area (`/admin/*`)
-- Same style as the member area: parchment, plum headings, engraved labels, framed cards. Admin pages are denser, so they use fewer ornaments (no verses or drop caps in tables).
-- **Phone and tablet:** top bar with page title and a menu sheet (Bookings, Schedule, Log out).
-- **`lg`+:** fixed left sidebar (240 px) with the same items; content to the right, max 1440 px.
+- Same shell as 4.2. Same style as the member area: parchment, plum headings, engraved labels, framed cards. Admin pages are denser, so they use fewer ornaments (no verses or drop caps in tables).
 
 ### 4.4 Wordmark
 There is no logo. The wordmark is a thin cross followed by "Healing Prayer" in Cormorant Garamond 600, with "North-West" under it in Cinzel caps (`0.32em` tracking). On dusk: `plum-ink` text, `gold-glow` cross and caps. On parchment: `plum` text, `gold` cross and caps. Use it in the header, the favicon (a gold cross on plum) and emails.
@@ -283,7 +289,8 @@ Flow and states match the booking sample; style matches the style reference. Hea
 - **Phone:**
   - Engraved "My bookings" label and the greeting "Peace be with you, {first name}".
   - **Your next session** in an arch card: date in Cormorant, time, a verse (Philippians 4:6), and Cancel booking (opens a confirm dialog).
-  - **Past sessions** as a register: rows between double rules, date in Cormorant, time, status pill.
+  - **Also booked:** other upcoming sessions (in other weeks), each with a Cancel booking link.
+  - **Past and cancelled** as a register: rows between double rules, date in Cormorant, time, status pill (Completed or Cancelled).
   - **Book another** notice: one line about the weekly rule and **See free times**.
   - Empty state: "You have no bookings yet." + Book prayer, in the same arch card.
 - **`md`+:** the next-session card on the left; past sessions and Book another stacked on the right.

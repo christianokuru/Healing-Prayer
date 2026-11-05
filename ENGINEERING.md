@@ -180,6 +180,7 @@ Design rules (tokens, breakpoints, component looks, screen layouts) live in `UI.
 - **Class names** are combined with `cn()` from `lib/cn.ts` (clsx + tailwind-merge). It is configured for our custom type tokens; never use `twMerge` directly.
 - **Field** uses a render prop so the label, hint and error are always linked: `<Field id label hint error>{(control) => <Input {...control} />}</Field>`.
 - **Dialog** is built on the native `<dialog>` (focus trap, inert page, Escape). State lives in the parent through `open` and `onClose`.
+- **Account shell:** `features/area-shell` (`AreaShell`, `MEMBER_LINKS`, `ADMIN_LINKS`) wraps `/dashboard` and `/admin`. It takes the Log out control as a prop (`logout`), so it does not import the auth feature. `Wordmark` and `MENU_ROW` live in `components/ui` because both the site header and the shell use them.
 - **Smooth scrolling:** `components/SmoothScroll.tsx` starts Lenis once in the root layout (rules in `UI.md` section 3.3). Do not create other Lenis instances. To keep native scrolling inside an element, add `data-lenis-prevent`.
 - **Living reference:** `/dev/tokens` and `/dev/components` show every token and component. Update them when you add or change one.
 - **Feature components** compose ui primitives with domain data.

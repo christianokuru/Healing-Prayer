@@ -24,4 +24,6 @@ export { PasswordInput } from "./PasswordInput";
 export { SegmentedToggle } from "./SegmentedToggle";
 export { Skeleton } from "./Skeleton";
 export { Spinner } from "./Spinner";
+export { MENU_ROW } from "./menu";
 export { ToastProvider, useToast } from "./Toast";
+export { Wordmark } from "./Wordmark";

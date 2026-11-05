@@ -1,10 +1,10 @@
 import Link from "next/link";
+import { Wordmark } from "@/components/ui";
 import { Suspense } from "react";
 import { accountLink, PUBLIC_LINKS } from "../nav";
 import { AccountLink, AccountLinkView } from "./AccountLink";
 import { HeaderFrame } from "./HeaderFrame";
 import { MobileMenu } from "./MobileMenu";
-import { Wordmark } from "./Wordmark";
 
 // Only the account link waits for the session. Everything else, including the phone menu
 // button, is in the static shell, so it never gets swapped out while someone taps it.
